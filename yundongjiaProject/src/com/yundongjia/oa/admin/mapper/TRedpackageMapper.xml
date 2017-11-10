@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TRedpackageMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TRedpackage" >
+    <id column="redId" property="redid" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="memberId" property="memberid" jdbcType="INTEGER" />
+    <result column="expireDate" property="expiredate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    redId, amount, createDate, type, memberId, expireDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TRedpackageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_redpackage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_redpackage
+    where redId = #{redid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_redpackage
+    where redId = #{redid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TRedpackageExample" >
+    delete from t_redpackage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TRedpackage" >
+    insert into t_redpackage (redId, amount, createDate, 
+      type, memberId, expireDate
+      )
+    values (#{redid,jdbcType=INTEGER}, #{amount,jdbcType=DOUBLE}, #{createdate,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{memberid,jdbcType=INTEGER}, #{expiredate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TRedpackage" >
+    insert into t_redpackage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="redid != null" >
+        redId,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="memberid != null" >
+        memberId,
+      </if>
+      <if test="expiredate != null" >
+        expireDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="redid != null" >
+        #{redid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="expiredate != null" >
+        #{expiredate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TRedpackageExample" resultType="java.lang.Integer" >
+    select count(*) from t_redpackage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_redpackage
+    <set >
+      <if test="record.redid != null" >
+        redId = #{record.redid,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberid != null" >
+        memberId = #{record.memberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.expiredate != null" >
+        expireDate = #{record.expiredate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_redpackage
+    set redId = #{record.redid,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=DOUBLE},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      memberId = #{record.memberid,jdbcType=INTEGER},
+      expireDate = #{record.expiredate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TRedpackage" >
+    update t_redpackage
+    <set >
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null" >
+        memberId = #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="expiredate != null" >
+        expireDate = #{expiredate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where redId = #{redid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TRedpackage" >
+    update t_redpackage
+    set amount = #{amount,jdbcType=DOUBLE},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      memberId = #{memberid,jdbcType=INTEGER},
+      expireDate = #{expiredate,jdbcType=VARCHAR}
+    where redId = #{redid,jdbcType=INTEGER}
+  </update>
+   <!-- 查询红包金额 与 过期红包金额 lxy-->
+  <select id="allSum" parameterType="java.util.Map" resultType="java.lang.Double">
+  	select sum(amount) from t_redpackage where 1=1
+    <if test="startTime != null" >
+		<if test="endTime != null" > 
+       		and #{startTime} &lt; expireDate and expireDate  &lt; #{endTime}
+		</if>
+    </if>
+    <if test="status == 1" >
+       and expireDate &lt; now()
+    </if>
+  </select>
+   <!-- 查询过期红包列表 lxy-->
+  <select id="pastList" parameterType="java.util.Map" resultType="java.util.Map">
+  	SELECT tu.mobilePhoneNo,tr.memberId,@y:=@y + 1 AS num FROM (SELECT @y:= 10000) c JOIN t_redpackage tr JOIN t_member tm JOIN t_user tu 
+  		ON tr.memberId = tm.memberId 
+		AND tm.userId = tu.userId
+		AND expireDate &lt; NOW()
+		 <if test="info != null">
+	       and tu.mobilePhoneNo like #{info}
+	    </if>
+	    GROUP BY tu.mobilePhoneNo
+	    order by num desc
+  </select>  
+</mapper>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TAuth" >
+    <id column="auth_id" property="authId" jdbcType="INTEGER" />
+    <result column="auth_name" property="authName" jdbcType="VARCHAR" />
+    <result column="auth_mark" property="authMark" jdbcType="VARCHAR" />
+    <result column="auth_comm" property="authComm" jdbcType="VARCHAR" />
+    <result column="auth_create_date" property="authCreateDate" jdbcType="TIMESTAMP" />
+    <result column="auth_operatorid" property="authOperatorid" jdbcType="INTEGER" />
+    <result column="auth_ordernum" property="authOrdernum" jdbcType="INTEGER" />
+    <result column="auth_menu_id" property="authMenuId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    auth_id, auth_name, auth_mark, auth_comm, auth_create_date, auth_operatorid, auth_ordernum, 
+    auth_menu_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TAuthExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_auth
+    where auth_id = #{authId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_auth
+    where auth_id = #{authId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TAuthExample" >
+    delete from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TAuth" >
+    insert into t_auth (auth_id, auth_name, auth_mark, 
+      auth_comm, auth_create_date, auth_operatorid, 
+      auth_ordernum, auth_menu_id)
+    values (#{authId,jdbcType=INTEGER}, #{authName,jdbcType=VARCHAR}, #{authMark,jdbcType=VARCHAR}, 
+      #{authComm,jdbcType=VARCHAR}, #{authCreateDate,jdbcType=TIMESTAMP}, #{authOperatorid,jdbcType=INTEGER}, 
+      #{authOrdernum,jdbcType=INTEGER}, #{authMenuId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TAuth" >
+    insert into t_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="authId != null" >
+        auth_id,
+      </if>
+      <if test="authName != null" >
+        auth_name,
+      </if>
+      <if test="authMark != null" >
+        auth_mark,
+      </if>
+      <if test="authComm != null" >
+        auth_comm,
+      </if>
+      <if test="authCreateDate != null" >
+        auth_create_date,
+      </if>
+      <if test="authOperatorid != null" >
+        auth_operatorid,
+      </if>
+      <if test="authOrdernum != null" >
+        auth_ordernum,
+      </if>
+      <if test="authMenuId != null" >
+        auth_menu_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="authId != null" >
+        #{authId,jdbcType=INTEGER},
+      </if>
+      <if test="authName != null" >
+        #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="authMark != null" >
+        #{authMark,jdbcType=VARCHAR},
+      </if>
+      <if test="authComm != null" >
+        #{authComm,jdbcType=VARCHAR},
+      </if>
+      <if test="authCreateDate != null" >
+        #{authCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authOperatorid != null" >
+        #{authOperatorid,jdbcType=INTEGER},
+      </if>
+      <if test="authOrdernum != null" >
+        #{authOrdernum,jdbcType=INTEGER},
+      </if>
+      <if test="authMenuId != null" >
+        #{authMenuId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TAuthExample" resultType="java.lang.Integer" >
+    select count(*) from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_auth
+    <set >
+      <if test="record.authId != null" >
+        auth_id = #{record.authId,jdbcType=INTEGER},
+      </if>
+      <if test="record.authName != null" >
+        auth_name = #{record.authName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authMark != null" >
+        auth_mark = #{record.authMark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authComm != null" >
+        auth_comm = #{record.authComm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authCreateDate != null" >
+        auth_create_date = #{record.authCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.authOperatorid != null" >
+        auth_operatorid = #{record.authOperatorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.authOrdernum != null" >
+        auth_ordernum = #{record.authOrdernum,jdbcType=INTEGER},
+      </if>
+      <if test="record.authMenuId != null" >
+        auth_menu_id = #{record.authMenuId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_auth
+    set auth_id = #{record.authId,jdbcType=INTEGER},
+      auth_name = #{record.authName,jdbcType=VARCHAR},
+      auth_mark = #{record.authMark,jdbcType=VARCHAR},
+      auth_comm = #{record.authComm,jdbcType=VARCHAR},
+      auth_create_date = #{record.authCreateDate,jdbcType=TIMESTAMP},
+      auth_operatorid = #{record.authOperatorid,jdbcType=INTEGER},
+      auth_ordernum = #{record.authOrdernum,jdbcType=INTEGER},
+      auth_menu_id = #{record.authMenuId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TAuth" >
+    update t_auth
+    <set >
+      <if test="authName != null" >
+        auth_name = #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="authMark != null" >
+        auth_mark = #{authMark,jdbcType=VARCHAR},
+      </if>
+      <if test="authComm != null" >
+        auth_comm = #{authComm,jdbcType=VARCHAR},
+      </if>
+      <if test="authCreateDate != null" >
+        auth_create_date = #{authCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authOperatorid != null" >
+        auth_operatorid = #{authOperatorid,jdbcType=INTEGER},
+      </if>
+      <if test="authOrdernum != null" >
+        auth_ordernum = #{authOrdernum,jdbcType=INTEGER},
+      </if>
+      <if test="authMenuId != null" >
+        auth_menu_id = #{authMenuId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where auth_id = #{authId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TAuth" >
+    update t_auth
+    set auth_name = #{authName,jdbcType=VARCHAR},
+      auth_mark = #{authMark,jdbcType=VARCHAR},
+      auth_comm = #{authComm,jdbcType=VARCHAR},
+      auth_create_date = #{authCreateDate,jdbcType=TIMESTAMP},
+      auth_operatorid = #{authOperatorid,jdbcType=INTEGER},
+      auth_ordernum = #{authOrdernum,jdbcType=INTEGER},
+      auth_menu_id = #{authMenuId,jdbcType=INTEGER}
+    where auth_id = #{authId,jdbcType=INTEGER}
+  </update>
+</mapper>

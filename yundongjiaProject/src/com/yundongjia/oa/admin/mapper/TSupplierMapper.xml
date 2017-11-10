@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TSupplierMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TSupplier" >
+    <id column="rowId" property="rowid" jdbcType="INTEGER" />
+    <result column="supplierLoginId" property="supplierloginid" jdbcType="INTEGER" />
+    <result column="supplierName" property="suppliername" jdbcType="VARCHAR" />
+    <result column="mobilePhoneNum" property="mobilephonenum" jdbcType="VARCHAR" />
+    <result column="linkmanName" property="linkmanname" jdbcType="VARCHAR" />
+    <result column="regionsId" property="regionsid" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="clearingType" property="clearingtype" jdbcType="INTEGER" />
+    <result column="periodClearing" property="periodclearing" jdbcType="INTEGER" />
+    <result column="stratus" property="stratus" jdbcType="INTEGER" />
+    <result column="linkStudioId" property="linkstudioid" jdbcType="VARCHAR" />
+    <result column="likeStudioCostPrice" property="likestudiocostprice" jdbcType="VARCHAR" />
+    <result column="linkCoachId" property="linkcoachid" jdbcType="VARCHAR" />
+    <result column="likeCoachCostPrice" property="likecoachcostprice" jdbcType="VARCHAR" />
+    <result column="linkGoodsId" property="linkgoodsid" jdbcType="VARCHAR" />
+    <result column="likeGoodsCostPrice" property="likegoodscostprice" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="saveMoney" property="savemoney" jdbcType="DOUBLE" />
+    <result column="superSaveMoney" property="supersavemoney" jdbcType="DOUBLE" />
+    <result column="saveMoneyExpireDate" property="savemoneyexpiredate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rowId, supplierLoginId, supplierName, mobilePhoneNum, linkmanName, regionsId, address, 
+    clearingType, periodClearing, stratus, linkStudioId, likeStudioCostPrice, linkCoachId, 
+    likeCoachCostPrice, linkGoodsId, likeGoodsCostPrice, balance, status, saveMoney, 
+    superSaveMoney, saveMoneyExpireDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TSupplierExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_supplier
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_supplier
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TSupplierExample" >
+    delete from t_supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TSupplier" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rowid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_supplier (supplierLoginId, supplierName, mobilePhoneNum, 
+      linkmanName, regionsId, address, 
+      clearingType, periodClearing, stratus, 
+      linkStudioId, likeStudioCostPrice, linkCoachId, 
+      likeCoachCostPrice, linkGoodsId, likeGoodsCostPrice, 
+      balance, status, saveMoney, 
+      superSaveMoney, saveMoneyExpireDate)
+    values (#{supplierloginid,jdbcType=INTEGER}, #{suppliername,jdbcType=VARCHAR}, #{mobilephonenum,jdbcType=VARCHAR}, 
+      #{linkmanname,jdbcType=VARCHAR}, #{regionsid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{clearingtype,jdbcType=INTEGER}, #{periodclearing,jdbcType=INTEGER}, #{stratus,jdbcType=INTEGER}, 
+      #{linkstudioid,jdbcType=VARCHAR}, #{likestudiocostprice,jdbcType=VARCHAR}, #{linkcoachid,jdbcType=VARCHAR}, 
+      #{likecoachcostprice,jdbcType=VARCHAR}, #{linkgoodsid,jdbcType=VARCHAR}, #{likegoodscostprice,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, #{savemoney,jdbcType=DOUBLE}, 
+      #{supersavemoney,jdbcType=DOUBLE}, #{savemoneyexpiredate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TSupplier" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rowid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierloginid != null" >
+        supplierLoginId,
+      </if>
+      <if test="suppliername != null" >
+        supplierName,
+      </if>
+      <if test="mobilephonenum != null" >
+        mobilePhoneNum,
+      </if>
+      <if test="linkmanname != null" >
+        linkmanName,
+      </if>
+      <if test="regionsid != null" >
+        regionsId,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="clearingtype != null" >
+        clearingType,
+      </if>
+      <if test="periodclearing != null" >
+        periodClearing,
+      </if>
+      <if test="stratus != null" >
+        stratus,
+      </if>
+      <if test="linkstudioid != null" >
+        linkStudioId,
+      </if>
+      <if test="likestudiocostprice != null" >
+        likeStudioCostPrice,
+      </if>
+      <if test="linkcoachid != null" >
+        linkCoachId,
+      </if>
+      <if test="likecoachcostprice != null" >
+        likeCoachCostPrice,
+      </if>
+      <if test="linkgoodsid != null" >
+        linkGoodsId,
+      </if>
+      <if test="likegoodscostprice != null" >
+        likeGoodsCostPrice,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="savemoney != null" >
+        saveMoney,
+      </if>
+      <if test="supersavemoney != null" >
+        superSaveMoney,
+      </if>
+      <if test="savemoneyexpiredate != null" >
+        saveMoneyExpireDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierloginid != null" >
+        #{supplierloginid,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null" >
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephonenum != null" >
+        #{mobilephonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanname != null" >
+        #{linkmanname,jdbcType=VARCHAR},
+      </if>
+      <if test="regionsid != null" >
+        #{regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="clearingtype != null" >
+        #{clearingtype,jdbcType=INTEGER},
+      </if>
+      <if test="periodclearing != null" >
+        #{periodclearing,jdbcType=INTEGER},
+      </if>
+      <if test="stratus != null" >
+        #{stratus,jdbcType=INTEGER},
+      </if>
+      <if test="linkstudioid != null" >
+        #{linkstudioid,jdbcType=VARCHAR},
+      </if>
+      <if test="likestudiocostprice != null" >
+        #{likestudiocostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="linkcoachid != null" >
+        #{linkcoachid,jdbcType=VARCHAR},
+      </if>
+      <if test="likecoachcostprice != null" >
+        #{likecoachcostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="linkgoodsid != null" >
+        #{linkgoodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="likegoodscostprice != null" >
+        #{likegoodscostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="savemoney != null" >
+        #{savemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="supersavemoney != null" >
+        #{supersavemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="savemoneyexpiredate != null" >
+        #{savemoneyexpiredate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TSupplierExample" resultType="java.lang.Integer" >
+    select count(*) from t_supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_supplier
+    <set >
+      <if test="record.rowid != null" >
+        rowId = #{record.rowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplierloginid != null" >
+        supplierLoginId = #{record.supplierloginid,jdbcType=INTEGER},
+      </if>
+      <if test="record.suppliername != null" >
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephonenum != null" >
+        mobilePhoneNum = #{record.mobilephonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanname != null" >
+        linkmanName = #{record.linkmanname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionsid != null" >
+        regionsId = #{record.regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clearingtype != null" >
+        clearingType = #{record.clearingtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodclearing != null" >
+        periodClearing = #{record.periodclearing,jdbcType=INTEGER},
+      </if>
+      <if test="record.stratus != null" >
+        stratus = #{record.stratus,jdbcType=INTEGER},
+      </if>
+      <if test="record.linkstudioid != null" >
+        linkStudioId = #{record.linkstudioid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likestudiocostprice != null" >
+        likeStudioCostPrice = #{record.likestudiocostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkcoachid != null" >
+        linkCoachId = #{record.linkcoachid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likecoachcostprice != null" >
+        likeCoachCostPrice = #{record.likecoachcostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkgoodsid != null" >
+        linkGoodsId = #{record.linkgoodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likegoodscostprice != null" >
+        likeGoodsCostPrice = #{record.likegoodscostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.savemoney != null" >
+        saveMoney = #{record.savemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.supersavemoney != null" >
+        superSaveMoney = #{record.supersavemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.savemoneyexpiredate != null" >
+        saveMoneyExpireDate = #{record.savemoneyexpiredate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_supplier
+    set rowId = #{record.rowid,jdbcType=INTEGER},
+      supplierLoginId = #{record.supplierloginid,jdbcType=INTEGER},
+      supplierName = #{record.suppliername,jdbcType=VARCHAR},
+      mobilePhoneNum = #{record.mobilephonenum,jdbcType=VARCHAR},
+      linkmanName = #{record.linkmanname,jdbcType=VARCHAR},
+      regionsId = #{record.regionsid,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      clearingType = #{record.clearingtype,jdbcType=INTEGER},
+      periodClearing = #{record.periodclearing,jdbcType=INTEGER},
+      stratus = #{record.stratus,jdbcType=INTEGER},
+      linkStudioId = #{record.linkstudioid,jdbcType=VARCHAR},
+      likeStudioCostPrice = #{record.likestudiocostprice,jdbcType=VARCHAR},
+      linkCoachId = #{record.linkcoachid,jdbcType=VARCHAR},
+      likeCoachCostPrice = #{record.likecoachcostprice,jdbcType=VARCHAR},
+      linkGoodsId = #{record.linkgoodsid,jdbcType=VARCHAR},
+      likeGoodsCostPrice = #{record.likegoodscostprice,jdbcType=VARCHAR},
+      balance = #{record.balance,jdbcType=DOUBLE},
+      status = #{record.status,jdbcType=INTEGER},
+      saveMoney = #{record.savemoney,jdbcType=DOUBLE},
+      superSaveMoney = #{record.supersavemoney,jdbcType=DOUBLE},
+      saveMoneyExpireDate = #{record.savemoneyexpiredate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TSupplier" >
+    update t_supplier
+    <set >
+      <if test="supplierloginid != null" >
+        supplierLoginId = #{supplierloginid,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null" >
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephonenum != null" >
+        mobilePhoneNum = #{mobilephonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanname != null" >
+        linkmanName = #{linkmanname,jdbcType=VARCHAR},
+      </if>
+      <if test="regionsid != null" >
+        regionsId = #{regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="clearingtype != null" >
+        clearingType = #{clearingtype,jdbcType=INTEGER},
+      </if>
+      <if test="periodclearing != null" >
+        periodClearing = #{periodclearing,jdbcType=INTEGER},
+      </if>
+      <if test="stratus != null" >
+        stratus = #{stratus,jdbcType=INTEGER},
+      </if>
+      <if test="linkstudioid != null" >
+        linkStudioId = #{linkstudioid,jdbcType=VARCHAR},
+      </if>
+      <if test="likestudiocostprice != null" >
+        likeStudioCostPrice = #{likestudiocostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="linkcoachid != null" >
+        linkCoachId = #{linkcoachid,jdbcType=VARCHAR},
+      </if>
+      <if test="likecoachcostprice != null" >
+        likeCoachCostPrice = #{likecoachcostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="linkgoodsid != null" >
+        linkGoodsId = #{linkgoodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="likegoodscostprice != null" >
+        likeGoodsCostPrice = #{likegoodscostprice,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="savemoney != null" >
+        saveMoney = #{savemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="supersavemoney != null" >
+        superSaveMoney = #{supersavemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="savemoneyexpiredate != null" >
+        saveMoneyExpireDate = #{savemoneyexpiredate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TSupplier" >
+    update t_supplier
+    set supplierLoginId = #{supplierloginid,jdbcType=INTEGER},
+      supplierName = #{suppliername,jdbcType=VARCHAR},
+      mobilePhoneNum = #{mobilephonenum,jdbcType=VARCHAR},
+      linkmanName = #{linkmanname,jdbcType=VARCHAR},
+      regionsId = #{regionsid,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      clearingType = #{clearingtype,jdbcType=INTEGER},
+      periodClearing = #{periodclearing,jdbcType=INTEGER},
+      stratus = #{stratus,jdbcType=INTEGER},
+      linkStudioId = #{linkstudioid,jdbcType=VARCHAR},
+      likeStudioCostPrice = #{likestudiocostprice,jdbcType=VARCHAR},
+      linkCoachId = #{linkcoachid,jdbcType=VARCHAR},
+      likeCoachCostPrice = #{likecoachcostprice,jdbcType=VARCHAR},
+      linkGoodsId = #{linkgoodsid,jdbcType=VARCHAR},
+      likeGoodsCostPrice = #{likegoodscostprice,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DOUBLE},
+      status = #{status,jdbcType=INTEGER},
+      saveMoney = #{savemoney,jdbcType=DOUBLE},
+      superSaveMoney = #{supersavemoney,jdbcType=DOUBLE},
+      saveMoneyExpireDate = #{savemoneyexpiredate,jdbcType=VARCHAR}
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 统计供应商金额 -->
+  <select id="selectMoneySumByType" parameterType="java.lang.Integer" resultType="java.lang.String">
+  	select 
+  	
+  	<if test="flag == 1">
+  	sum(t_supplier.saveMoney)
+  	</if>
+  	
+  	<if test="flag == 2">
+  	sum(t_supplier.superSaveMoney)
+  	</if>
+  	<if test="flag == 3">
+  	
+  	</if>
+  	<if test="flag == 4">
+  	
+  	</if>
+  	
+  	from t_supplier
+  	
+  	
+  </select>
+  
+  <!-- 根据提现账号ID查询供应商信息 -->
+  <select id="getSupplierByApplyAccountId" parameterType="java.lang.Integer" resultType="java.util.Map">
+      select * from t_apply_account
+inner join t_supplier
+on t_supplier.rowId = t_apply_account.likeId
+where t_apply_account.likeType = 4
+and t_apply_account.rowdId = #{accountId}
+  </select>
+  
+  
+  <!-- hj 根据订单ID 查询供应商 -->
+  <select id="findColumnByOrderId" parameterType="java.util.Map" resultType="java.util.Map">
+    select * from t_supplier
+where find_in_set(#{param.id},
+
+<if test="param.column == 0">linkGoodsId</if>
+<if test="param.column == 1">linkStudioId</if>
+<if test="param.column == 2">linkCoachId</if>
+)
+  	
+  </select>
+  
+</mapper>

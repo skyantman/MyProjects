@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TMsgMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TMsg" >
+    <id column="verifyId" property="verifyid" jdbcType="INTEGER" />
+    <result column="verifyCode" property="verifycode" jdbcType="VARCHAR" />
+    <result column="mobilePhoneNo" property="mobilephoneno" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="codeType" property="codetype" jdbcType="INTEGER" />
+    <result column="fromid" property="fromid" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    verifyId, verifyCode, mobilePhoneNo, status, createDate, codeType, fromid, ip
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TMsgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_msg
+    where verifyId = #{verifyid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_msg
+    where verifyId = #{verifyid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TMsgExample" >
+    delete from t_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TMsg" >
+    insert into t_msg (verifyId, verifyCode, mobilePhoneNo, 
+      status, createDate, codeType, 
+      fromid, ip)
+    values (#{verifyid,jdbcType=INTEGER}, #{verifycode,jdbcType=VARCHAR}, #{mobilephoneno,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, #{codetype,jdbcType=INTEGER}, 
+      #{fromid,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TMsg" >
+    insert into t_msg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="verifyid != null" >
+        verifyId,
+      </if>
+      <if test="verifycode != null" >
+        verifyCode,
+      </if>
+      <if test="mobilephoneno != null" >
+        mobilePhoneNo,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="codetype != null" >
+        codeType,
+      </if>
+      <if test="fromid != null" >
+        fromid,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="verifyid != null" >
+        #{verifyid,jdbcType=INTEGER},
+      </if>
+      <if test="verifycode != null" >
+        #{verifycode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephoneno != null" >
+        #{mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="codetype != null" >
+        #{codetype,jdbcType=INTEGER},
+      </if>
+      <if test="fromid != null" >
+        #{fromid,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TMsgExample" resultType="java.lang.Integer" >
+    select count(*) from t_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_msg
+    <set >
+      <if test="record.verifyid != null" >
+        verifyId = #{record.verifyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.verifycode != null" >
+        verifyCode = #{record.verifycode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephoneno != null" >
+        mobilePhoneNo = #{record.mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codetype != null" >
+        codeType = #{record.codetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromid != null" >
+        fromid = #{record.fromid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_msg
+    set verifyId = #{record.verifyid,jdbcType=INTEGER},
+      verifyCode = #{record.verifycode,jdbcType=VARCHAR},
+      mobilePhoneNo = #{record.mobilephoneno,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      codeType = #{record.codetype,jdbcType=INTEGER},
+      fromid = #{record.fromid,jdbcType=INTEGER},
+      ip = #{record.ip,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TMsg" >
+    update t_msg
+    <set >
+      <if test="verifycode != null" >
+        verifyCode = #{verifycode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephoneno != null" >
+        mobilePhoneNo = #{mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="codetype != null" >
+        codeType = #{codetype,jdbcType=INTEGER},
+      </if>
+      <if test="fromid != null" >
+        fromid = #{fromid,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where verifyId = #{verifyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TMsg" >
+    update t_msg
+    set verifyCode = #{verifycode,jdbcType=VARCHAR},
+      mobilePhoneNo = #{mobilephoneno,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      codeType = #{codetype,jdbcType=INTEGER},
+      fromid = #{fromid,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR}
+    where verifyId = #{verifyid,jdbcType=INTEGER}
+  </update>
+  	<!-- 验证验证码与手机号是否正确 -->
+  <select id="selectBMByphoneAndCode" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	 select verifyId from t_msg where mobilePhoneNo = #{phonenum}  and verifyCode = #{authCode} and status = '1'
+  </select>
+  <!-- 更新验证码状态 -->
+  <update id="updateStatuByPhone" parameterType="java.lang.String" >
+  		update t_msg set status = '0' where mobilePhoneNo = #{userMobilephoneno}
+  </update>	
+</mapper>

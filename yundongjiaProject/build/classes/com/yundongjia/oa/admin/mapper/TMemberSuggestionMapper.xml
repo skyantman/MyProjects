@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TMemberSuggestionMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TMemberSuggestion" >
+    <id column="suggestionId" property="suggestionid" jdbcType="INTEGER" />
+    <result column="mobilePhoneNo" property="mobilephoneno" jdbcType="VARCHAR" />
+    <result column="suggestionInfo" property="suggestioninfo" jdbcType="VARCHAR" />
+    <result column="likerId" property="likerid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    suggestionId, mobilePhoneNo, suggestionInfo, likerId, status, createDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TMemberSuggestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_member_suggestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_suggestion
+    where suggestionId = #{suggestionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member_suggestion
+    where suggestionId = #{suggestionid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TMemberSuggestionExample" >
+    delete from t_member_suggestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TMemberSuggestion" >
+    insert into t_member_suggestion (suggestionId, mobilePhoneNo, suggestionInfo, 
+      likerId, status, createDate
+      )
+    values (#{suggestionid,jdbcType=INTEGER}, #{mobilephoneno,jdbcType=VARCHAR}, #{suggestioninfo,jdbcType=VARCHAR}, 
+      #{likerid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createdate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TMemberSuggestion" >
+    insert into t_member_suggestion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="suggestionid != null" >
+        suggestionId,
+      </if>
+      <if test="mobilephoneno != null" >
+        mobilePhoneNo,
+      </if>
+      <if test="suggestioninfo != null" >
+        suggestionInfo,
+      </if>
+      <if test="likerid != null" >
+        likerId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="suggestionid != null" >
+        #{suggestionid,jdbcType=INTEGER},
+      </if>
+      <if test="mobilephoneno != null" >
+        #{mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestioninfo != null" >
+        #{suggestioninfo,jdbcType=VARCHAR},
+      </if>
+      <if test="likerid != null" >
+        #{likerid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TMemberSuggestionExample" resultType="java.lang.Integer" >
+    select count(*) from t_member_suggestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_member_suggestion
+    <set >
+      <if test="record.suggestionid != null" >
+        suggestionId = #{record.suggestionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobilephoneno != null" >
+        mobilePhoneNo = #{record.mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suggestioninfo != null" >
+        suggestionInfo = #{record.suggestioninfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likerid != null" >
+        likerId = #{record.likerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_member_suggestion
+    set suggestionId = #{record.suggestionid,jdbcType=INTEGER},
+      mobilePhoneNo = #{record.mobilephoneno,jdbcType=VARCHAR},
+      suggestionInfo = #{record.suggestioninfo,jdbcType=VARCHAR},
+      likerId = #{record.likerid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      createDate = #{record.createdate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TMemberSuggestion" >
+    update t_member_suggestion
+    <set >
+      <if test="mobilephoneno != null" >
+        mobilePhoneNo = #{mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestioninfo != null" >
+        suggestionInfo = #{suggestioninfo,jdbcType=VARCHAR},
+      </if>
+      <if test="likerid != null" >
+        likerId = #{likerid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where suggestionId = #{suggestionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TMemberSuggestion" >
+    update t_member_suggestion
+    set mobilePhoneNo = #{mobilephoneno,jdbcType=VARCHAR},
+      suggestionInfo = #{suggestioninfo,jdbcType=VARCHAR},
+      likerId = #{likerid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=VARCHAR}
+    where suggestionId = #{suggestionid,jdbcType=INTEGER}
+  </update>
+</mapper>

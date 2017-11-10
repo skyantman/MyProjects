@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+	<!-- 缓存管理器开始 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+	<bean id="ehCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:spring/shiro-ehcache.xml" />
+		<property name="shared" value="true"></property>
+	</bean>
+	
+	<!-- 健身房 -->
+	<bean id="userRealm" class="com.yundongjia.oa.realm.userRealm">
+         
+	</bean>
+ 	 <!--缓存管理器实现类，这里用的是系统自带的-->
+    <bean id="shiroCacheManager"  class="org.apache.shiro.cache.MemoryConstrainedCacheManager">
+    </bean>
+	<!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm" />
+		<!-- 缓存管理器 -->
+        <!-- <property name="cacheManager" ref="shiroCacheManager" /> -->
+        <!-- 注入缓存管理器-->  
+    	<property name="cacheManager" ref="cacheManager" />  
+    	
+		<!-- <property name="authenticator" ref="authenticator"/>
+		<property name="realms">
+			<list>
+			 <ref bean="gymRealm"/>
+			</list>
+		</property> -->
+	</bean>
+	<!-- 多个reaml配合使用 -->
+	<!-- <bean id="authenticator" class="com.yundongjia.oa.realm.ModularRealmAuthenticator">
+		<property name="authenticationStrategy">
+		 <bean class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy" />
+		</property>
+	</bean> -->
+
+	<!-- Shiro的Web过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<!-- <property name="loginUrl" value="/login" />  
+    	<property name="successUrl" value="/project" />  --> 
+		<!--  
+		  <property name="filterChainDefinitions">
+		    <value>
+                /login = anon
+                /query = authc
+                /user/** = authc
+                /** = authc
+            </value>
+		  
+		  </property>
+		-->
+	</bean>
+
+
+</beans>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TMemberShowtimeMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TMemberShowtime" >
+    <id column="timeId" property="timeid" jdbcType="INTEGER" />
+    <result column="showstarttime" property="showstarttime" jdbcType="VARCHAR" />
+    <result column="showendtime" property="showendtime" jdbcType="VARCHAR" />
+    <result column="timespan" property="timespan" jdbcType="VARCHAR" />
+    <result column="memberId" property="memberid" jdbcType="INTEGER" />
+    <result column="studioId" property="studioid" jdbcType="INTEGER" />
+    <result column="isshowover" property="isshowover" jdbcType="VARCHAR" />
+    <result column="millisecond" property="millisecond" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    timeId, showstarttime, showendtime, timespan, memberId, studioId, isshowover, millisecond
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TMemberShowtimeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_member_showtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_showtime
+    where timeId = #{timeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member_showtime
+    where timeId = #{timeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TMemberShowtimeExample" >
+    delete from t_member_showtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TMemberShowtime" >
+    <selectKey resultType="java.lang.Integer" keyProperty="timeid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_member_showtime (showstarttime, showendtime, timespan, 
+      memberId, studioId, isshowover, 
+      millisecond)
+    values (#{showstarttime,jdbcType=VARCHAR}, #{showendtime,jdbcType=VARCHAR}, #{timespan,jdbcType=VARCHAR}, 
+      #{memberid,jdbcType=INTEGER}, #{studioid,jdbcType=INTEGER}, #{isshowover,jdbcType=VARCHAR}, 
+      #{millisecond,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TMemberShowtime" >
+    <selectKey resultType="java.lang.Integer" keyProperty="timeid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_member_showtime
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="showstarttime != null" >
+        showstarttime,
+      </if>
+      <if test="showendtime != null" >
+        showendtime,
+      </if>
+      <if test="timespan != null" >
+        timespan,
+      </if>
+      <if test="memberid != null" >
+        memberId,
+      </if>
+      <if test="studioid != null" >
+        studioId,
+      </if>
+      <if test="isshowover != null" >
+        isshowover,
+      </if>
+      <if test="millisecond != null" >
+        millisecond,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="showstarttime != null" >
+        #{showstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="showendtime != null" >
+        #{showendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="timespan != null" >
+        #{timespan,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="studioid != null" >
+        #{studioid,jdbcType=INTEGER},
+      </if>
+      <if test="isshowover != null" >
+        #{isshowover,jdbcType=VARCHAR},
+      </if>
+      <if test="millisecond != null" >
+        #{millisecond,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TMemberShowtimeExample" resultType="java.lang.Integer" >
+    select count(*) from t_member_showtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_member_showtime
+    <set >
+      <if test="record.timeid != null" >
+        timeId = #{record.timeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.showstarttime != null" >
+        showstarttime = #{record.showstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showendtime != null" >
+        showendtime = #{record.showendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timespan != null" >
+        timespan = #{record.timespan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberid != null" >
+        memberId = #{record.memberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studioid != null" >
+        studioId = #{record.studioid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isshowover != null" >
+        isshowover = #{record.isshowover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.millisecond != null" >
+        millisecond = #{record.millisecond,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_member_showtime
+    set timeId = #{record.timeid,jdbcType=INTEGER},
+      showstarttime = #{record.showstarttime,jdbcType=VARCHAR},
+      showendtime = #{record.showendtime,jdbcType=VARCHAR},
+      timespan = #{record.timespan,jdbcType=VARCHAR},
+      memberId = #{record.memberid,jdbcType=INTEGER},
+      studioId = #{record.studioid,jdbcType=INTEGER},
+      isshowover = #{record.isshowover,jdbcType=VARCHAR},
+      millisecond = #{record.millisecond,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TMemberShowtime" >
+    update t_member_showtime
+    <set >
+      <if test="showstarttime != null" >
+        showstarttime = #{showstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="showendtime != null" >
+        showendtime = #{showendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="timespan != null" >
+        timespan = #{timespan,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        memberId = #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="studioid != null" >
+        studioId = #{studioid,jdbcType=INTEGER},
+      </if>
+      <if test="isshowover != null" >
+        isshowover = #{isshowover,jdbcType=VARCHAR},
+      </if>
+      <if test="millisecond != null" >
+        millisecond = #{millisecond,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where timeId = #{timeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TMemberShowtime" >
+    update t_member_showtime
+    set showstarttime = #{showstarttime,jdbcType=VARCHAR},
+      showendtime = #{showendtime,jdbcType=VARCHAR},
+      timespan = #{timespan,jdbcType=VARCHAR},
+      memberId = #{memberid,jdbcType=INTEGER},
+      studioId = #{studioid,jdbcType=INTEGER},
+      isshowover = #{isshowover,jdbcType=VARCHAR},
+      millisecond = #{millisecond,jdbcType=VARCHAR}
+    where timeId = #{timeid,jdbcType=INTEGER}
+  </update>
+  <select id="findRank" resultType="java.util.Map" >
+  		select memberId,sum(millisecond) sportsMillisecond from t_member_showtime  group by memberId order by sportsMillisecond desc
+  </select>
+</mapper>

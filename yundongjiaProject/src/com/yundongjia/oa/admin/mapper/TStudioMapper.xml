@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TStudioMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TStudio" >
+    <id column="studioId" property="studioid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="studioName" property="studioname" jdbcType="VARCHAR" />
+    <result column="studioOpentime" property="studioopentime" jdbcType="VARCHAR" />
+    <result column="studioAddr" property="studioaddr" jdbcType="VARCHAR" />
+    <result column="studioIntroduce" property="studiointroduce" jdbcType="VARCHAR" />
+    <result column="studioEquip" property="studioequip" jdbcType="VARCHAR" />
+    <result column="studioTel" property="studiotel" jdbcType="VARCHAR" />
+    <result column="superTel" property="supertel" jdbcType="VARCHAR" />
+    <result column="superName" property="supername" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="imgpath" property="imgpath" jdbcType="VARCHAR" />
+    <result column="isLine" property="isline" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="consumeMoney" property="consumemoney" jdbcType="DOUBLE" />
+    <result column="regionsId" property="regionsid" jdbcType="INTEGER" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+    <result column="comm" property="comm" jdbcType="VARCHAR" />
+    <result column="cancleLimit" property="canclelimit" jdbcType="INTEGER" />
+    <result column="enterpriseSubNum" property="enterprisesubnum" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="gradeScore" property="gradescore" jdbcType="DOUBLE" />
+    <result column="isReserve" property="isreserve" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    studioId, userId, studioName, studioOpentime, studioAddr, studioIntroduce, studioEquip, 
+    studioTel, superTel, superName, lng, lat, imgpath, isLine, type, consumeMoney, regionsId, 
+    keyword, comm, cancleLimit, enterpriseSubNum, status, gradeScore, isReserve
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TStudioExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_studio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_studio
+    where studioId = #{studioid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_studio
+    where studioId = #{studioid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TStudioExample" >
+    delete from t_studio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TStudio" >
+    <selectKey resultType="java.lang.Integer" keyProperty="studioid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_studio (userId, studioName, studioOpentime, 
+      studioAddr, studioIntroduce, studioEquip, 
+      studioTel, superTel, superName, 
+      lng, lat, imgpath, 
+      isLine, type, consumeMoney, 
+      regionsId, keyword, comm, 
+      cancleLimit, enterpriseSubNum, status, 
+      gradeScore, isReserve)
+    values (#{userid,jdbcType=INTEGER}, #{studioname,jdbcType=VARCHAR}, #{studioopentime,jdbcType=VARCHAR}, 
+      #{studioaddr,jdbcType=VARCHAR}, #{studiointroduce,jdbcType=VARCHAR}, #{studioequip,jdbcType=VARCHAR}, 
+      #{studiotel,jdbcType=VARCHAR}, #{supertel,jdbcType=VARCHAR}, #{supername,jdbcType=VARCHAR}, 
+      #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{imgpath,jdbcType=VARCHAR}, 
+      #{isline,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{consumemoney,jdbcType=DOUBLE}, 
+      #{regionsid,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR}, #{comm,jdbcType=VARCHAR}, 
+      #{canclelimit,jdbcType=INTEGER}, #{enterprisesubnum,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{gradescore,jdbcType=DOUBLE}, #{isreserve,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TStudio" >
+    <selectKey resultType="java.lang.Integer" keyProperty="studioid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_studio
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="studioname != null" >
+        studioName,
+      </if>
+      <if test="studioopentime != null" >
+        studioOpentime,
+      </if>
+      <if test="studioaddr != null" >
+        studioAddr,
+      </if>
+      <if test="studiointroduce != null" >
+        studioIntroduce,
+      </if>
+      <if test="studioequip != null" >
+        studioEquip,
+      </if>
+      <if test="studiotel != null" >
+        studioTel,
+      </if>
+      <if test="supertel != null" >
+        superTel,
+      </if>
+      <if test="supername != null" >
+        superName,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="imgpath != null" >
+        imgpath,
+      </if>
+      <if test="isline != null" >
+        isLine,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="consumemoney != null" >
+        consumeMoney,
+      </if>
+      <if test="regionsid != null" >
+        regionsId,
+      </if>
+      <if test="keyword != null" >
+        keyword,
+      </if>
+      <if test="comm != null" >
+        comm,
+      </if>
+      <if test="canclelimit != null" >
+        cancleLimit,
+      </if>
+      <if test="enterprisesubnum != null" >
+        enterpriseSubNum,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="gradescore != null" >
+        gradeScore,
+      </if>
+      <if test="isreserve != null" >
+        isReserve,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="studioname != null" >
+        #{studioname,jdbcType=VARCHAR},
+      </if>
+      <if test="studioopentime != null" >
+        #{studioopentime,jdbcType=VARCHAR},
+      </if>
+      <if test="studioaddr != null" >
+        #{studioaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="studiointroduce != null" >
+        #{studiointroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="studioequip != null" >
+        #{studioequip,jdbcType=VARCHAR},
+      </if>
+      <if test="studiotel != null" >
+        #{studiotel,jdbcType=VARCHAR},
+      </if>
+      <if test="supertel != null" >
+        #{supertel,jdbcType=VARCHAR},
+      </if>
+      <if test="supername != null" >
+        #{supername,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="isline != null" >
+        #{isline,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="consumemoney != null" >
+        #{consumemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="regionsid != null" >
+        #{regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="comm != null" >
+        #{comm,jdbcType=VARCHAR},
+      </if>
+      <if test="canclelimit != null" >
+        #{canclelimit,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisesubnum != null" >
+        #{enterprisesubnum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="gradescore != null" >
+        #{gradescore,jdbcType=DOUBLE},
+      </if>
+      <if test="isreserve != null" >
+        #{isreserve,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TStudioExample" resultType="java.lang.Integer" >
+    select count(*) from t_studio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_studio
+    <set >
+      <if test="record.studioid != null" >
+        studioId = #{record.studioid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studioname != null" >
+        studioName = #{record.studioname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studioopentime != null" >
+        studioOpentime = #{record.studioopentime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studioaddr != null" >
+        studioAddr = #{record.studioaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studiointroduce != null" >
+        studioIntroduce = #{record.studiointroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studioequip != null" >
+        studioEquip = #{record.studioequip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studiotel != null" >
+        studioTel = #{record.studiotel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supertel != null" >
+        superTel = #{record.supertel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supername != null" >
+        superName = #{record.supername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lng != null" >
+        lng = #{record.lng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lat != null" >
+        lat = #{record.lat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgpath != null" >
+        imgpath = #{record.imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isline != null" >
+        isLine = #{record.isline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consumemoney != null" >
+        consumeMoney = #{record.consumemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.regionsid != null" >
+        regionsId = #{record.regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.keyword != null" >
+        keyword = #{record.keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comm != null" >
+        comm = #{record.comm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.canclelimit != null" >
+        cancleLimit = #{record.canclelimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.enterprisesubnum != null" >
+        enterpriseSubNum = #{record.enterprisesubnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradescore != null" >
+        gradeScore = #{record.gradescore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isreserve != null" >
+        isReserve = #{record.isreserve,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_studio
+    set studioId = #{record.studioid,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      studioName = #{record.studioname,jdbcType=VARCHAR},
+      studioOpentime = #{record.studioopentime,jdbcType=VARCHAR},
+      studioAddr = #{record.studioaddr,jdbcType=VARCHAR},
+      studioIntroduce = #{record.studiointroduce,jdbcType=VARCHAR},
+      studioEquip = #{record.studioequip,jdbcType=VARCHAR},
+      studioTel = #{record.studiotel,jdbcType=VARCHAR},
+      superTel = #{record.supertel,jdbcType=VARCHAR},
+      superName = #{record.supername,jdbcType=VARCHAR},
+      lng = #{record.lng,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=VARCHAR},
+      imgpath = #{record.imgpath,jdbcType=VARCHAR},
+      isLine = #{record.isline,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      consumeMoney = #{record.consumemoney,jdbcType=DOUBLE},
+      regionsId = #{record.regionsid,jdbcType=INTEGER},
+      keyword = #{record.keyword,jdbcType=VARCHAR},
+      comm = #{record.comm,jdbcType=VARCHAR},
+      cancleLimit = #{record.canclelimit,jdbcType=INTEGER},
+      enterpriseSubNum = #{record.enterprisesubnum,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      gradeScore = #{record.gradescore,jdbcType=DOUBLE},
+      isReserve = #{record.isreserve,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TStudio" >
+    update t_studio
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="studioname != null" >
+        studioName = #{studioname,jdbcType=VARCHAR},
+      </if>
+      <if test="studioopentime != null" >
+        studioOpentime = #{studioopentime,jdbcType=VARCHAR},
+      </if>
+      <if test="studioaddr != null" >
+        studioAddr = #{studioaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="studiointroduce != null" >
+        studioIntroduce = #{studiointroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="studioequip != null" >
+        studioEquip = #{studioequip,jdbcType=VARCHAR},
+      </if>
+      <if test="studiotel != null" >
+        studioTel = #{studiotel,jdbcType=VARCHAR},
+      </if>
+      <if test="supertel != null" >
+        superTel = #{supertel,jdbcType=VARCHAR},
+      </if>
+      <if test="supername != null" >
+        superName = #{supername,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        imgpath = #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="isline != null" >
+        isLine = #{isline,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="consumemoney != null" >
+        consumeMoney = #{consumemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="regionsid != null" >
+        regionsId = #{regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="keyword != null" >
+        keyword = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="comm != null" >
+        comm = #{comm,jdbcType=VARCHAR},
+      </if>
+      <if test="canclelimit != null" >
+        cancleLimit = #{canclelimit,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisesubnum != null" >
+        enterpriseSubNum = #{enterprisesubnum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="gradescore != null" >
+        gradeScore = #{gradescore,jdbcType=DOUBLE},
+      </if>
+      <if test="isreserve != null" >
+        isReserve = #{isreserve,jdbcType=INTEGER},
+      </if>
+    </set>
+    where studioId = #{studioid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TStudio" >
+    update t_studio
+    set userId = #{userid,jdbcType=INTEGER},
+      studioName = #{studioname,jdbcType=VARCHAR},
+      studioOpentime = #{studioopentime,jdbcType=VARCHAR},
+      studioAddr = #{studioaddr,jdbcType=VARCHAR},
+      studioIntroduce = #{studiointroduce,jdbcType=VARCHAR},
+      studioEquip = #{studioequip,jdbcType=VARCHAR},
+      studioTel = #{studiotel,jdbcType=VARCHAR},
+      superTel = #{supertel,jdbcType=VARCHAR},
+      superName = #{supername,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      imgpath = #{imgpath,jdbcType=VARCHAR},
+      isLine = #{isline,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      consumeMoney = #{consumemoney,jdbcType=DOUBLE},
+      regionsId = #{regionsid,jdbcType=INTEGER},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      comm = #{comm,jdbcType=VARCHAR},
+      cancleLimit = #{canclelimit,jdbcType=INTEGER},
+      enterpriseSubNum = #{enterprisesubnum,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      gradeScore = #{gradescore,jdbcType=DOUBLE},
+      isReserve = #{isreserve,jdbcType=INTEGER}
+    where studioId = #{studioid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 手写 sql  -->
+  
+  <!--hj 全查或条件查询  -->
+  <select id="findStudioList" parameterType="com.yundongjia.oa.admin.po.TStudio" 
+
+resultType="java.util.Map">
+    select * from t_studio 
+    where 1=1
+    <if test="studioname !=null and studioname != '' ">
+     and t_studio.studioName  like #{studioname}
+    </if>
+    <if test="type != null and type != -1">
+    and t_studio.`type` = #{type}
+    </if>
+    <if test="regionsid != null and regionsid != -1">
+    and t_studio.regionsId = #{regionsid}
+    </if>
+    <if test="status != null and status != -1">
+    and t_studio.`status` = #{status}
+    </if>
+    order by t_studio.studioId desc
+  </select>
+  
+  <!-- 根据场馆ID查询场馆详情 -->
+  <select id="selectStudioById" parameterType="java.util.Map" resultType="java.util.Map">
+    select * from t_studio  where  t_studio.studioId = #{studioId}   
+  </select>
+  
+  <!-- hj 根据不同的状态统计 -->
+  <select id="selectStatisByStudioStatus" parameterType="java.lang.Integer" 
+
+resultType="java.lang.Integer">
+  	select count(1) from t_studio where t_studio.`status` = #{status}
+  </select>
+  
+  <!-- hj 根据教练ID查询场馆 -->
+  <select id="getStudioByCoachId" parameterType="java.lang.Integer" 
+
+resultType="java.util.Map">
+     select * from t_coach_studio_ref
+inner join t_studio
+inner join t_coach
+where t_coach_studio_ref.coachId = t_coach.coachId
+and t_coach_studio_ref.studioId = t_studio.studioId
+and t_coach_studio_ref.coachId = #{coachId}
+  </select>
+  
+  
+  <!-- hj   app场馆列表 + 首页    -->
+<!-- 距离方案一
+and ((CONVERT(lng,SIGNED)- #{param.lng})*(CONVERT(lng,SIGNED)-#{param.lng})
++
+(CONVERT(lat,SIGNED)- #{param.lat})*(CONVERT(lat,SIGNED)- #{param.lat}))
+&lt;= 25
+
+ -->
+  <select id="findStudioListApp" parameterType="java.util.Map" resultType="java.util.HashMap">
+select *
+ from t_studio 
+ inner join t_attach
+ on t_studio.studioId = t_attach.proId
+ where t_studio.status = 0 
+ and  t_attach.attachType = 2 
+ and isDel = 0 
+ and imgOrderNum = 0
+ and t_studio.isLine = 1
+
+<if test="param.searchName !=null and param.searchName !='' ">
+  and (t_studio.studioName like #{param.searchName} 
+    or t_studio.studioAddr like #{param.searchName} )
+</if>
+ 
+  <if test="param.areas != null">
+  	and t_studio.regionsId in
+  	<foreach  collection="param.areas" item="areas" open="(" separator="," close=")" index="index">
+  		#{areas}
+  	</foreach>
+  </if>
+ 
+ <if test="param.studioType != null and param.studioType != 0">
+ 	  and t_studio.type = #{param.studioType}
+ </if>
+ 
+ <if test="param.pattern == 0">
+ and lat &gt; #{param.position.rightBottomPoint[0]}
+ and lat &lt; #{param.position.leftTopPoint[0]}
+ and lng &gt; #{param.position.leftTopPoint[1]}
+ and lng &lt; #{param.position.rightBottomPoint[1]}
+ </if>
+ 
+ 
+  order by t_studio.studioId desc
+  </select>
+  
+  
+  <!-- hj app 根据场馆ID查询 -->
+  <select id="selectStudioByIdApp" parameterType="java.lang.Integer" resultType="java.util.Map">
+  	select * from  t_studio where t_studio.studioId = #{studioId}
+  </select>
+<!-- 根据场馆类型统计 -->
+<select id="getStudioTypeCount" parameterType="java.util.Map" resultType="java.lang.String">
+select count(1) from t_studio 
+inner join t_attach
+on t_studio.studioId = t_attach.proId
+where 1=1  and status = 0
+ and  t_attach.attachType = 2 
+ and isDel = 0 
+ and imgOrderNum = 0
+ and t_studio.isLine = 1
+<if test="param.typeId != 0 ">
+ and  t_studio.type = #{param.typeId}
+</if>
+<if test="param.areas != null">
+	and t_studio.regionsId in
+	<foreach collection="param.areas" item="area" open="(" separator="," close=")" index="i">
+	${area}
+	</foreach>
+</if>
+</select>
+<!-- 根据区统计类型 -->
+<select id="getStudeioByAreaCount" parameterType="java.util.Map" resultType="java.lang.String">
+   select count(1) from  t_studio 
+   
+   inner join t_attach
+on t_studio.studioId = t_attach.proId
+   where 1=1  and status = 0 
+    and  t_attach.attachType = 2 
+ and isDel = 0 
+ and imgOrderNum = 0
+ and t_studio.isLine = 1
+   and t_studio.type = #{param.typeId} and t_studio.regionsId = #{param.areaId}
+</select>
+
+<!-- 
+flag = 1 类型查询  0 全部类型
+
+flag = 2 附近 某个地区查询
+
+param.studioType场馆类型查询  0：全部 1：工作室  2：健身房 3:游泳 4：羽毛球 5：高尔夫 6：篮球 7：网球 8：足球 9：台球 10：保龄球  11: 瑜伽 12：舞蹈 13：马术 14：滑雪 15：滑冰 16:练习场
+param.areaCode地区查询 -1 不查询地区
+param.orderType排序
+ -->
+<select id="findStudioBySearchs" parameterType="java.util.Map" resultType="java.util.Map">
+select * from t_studio 
+inner join t_attach
+on t_studio.studioId = t_attach.proId
+ where 1=1 and status = 0
+ and  t_attach.attachType = 2 
+ and isDel = 0 
+ and imgOrderNum = 0
+ and t_studio.isLine = 1
+
+		<if test="param.studioType != 0">
+			and t_studio.type = #{param.studioType}
+		</if>
+		
+	    
+		<if test="param.areaCode != -1">
+		  and t_studio.regionsId = #{param.areaCode}
+		</if>
+
+	    <if test="param.areaCode == -1 and param.areas != null">
+			and t_studio.regionsId in
+			<foreach collection="param.areas" item="area" open="(" separator="," close=")">
+				#{area}
+			</foreach>
+		</if>
+		
+		<if test="param.orderType != -1">
+			<if test="param.orderType == 2">
+			order by consumeMoney asc
+			</if>
+			<if test="param.orderType == 3">
+			order by consumeMoney desc
+			</if>
+			<if test="param.orderType == 4">
+			order by t_studio.gradeScore desc
+			</if>
+		</if>
+
+	<if test="param.orderType == -1">
+		order by t_studio.studioId desc
+	</if>
+</select>
+<!--hj  根据场馆原价价格排序  
+param.typeColumn 0 价格排序
+param.typeColumn 1 评分排序
+
+param.orderFlag 0 asc
+param.orderFlag 1 desc
+-->
+<select id="findStudioByConsumeMoneyOrder" parameterType="java.util.Map" resultType="java.util.Map">
+select * from t_studio 
+inner join t_attach
+on t_studio.studioId = t_attach.proId
+where 1=1  and status = 0 
+and  t_attach.attachType = 2 
+ and isDel = 0 
+ and imgOrderNum = 0
+ and t_studio.isLine = 1
+<if test="param.areas != null">
+	and t_studio.regionsId in
+	<foreach collection="param.areas" item="area" open="(" separator="," close=")">
+	#{area}
+	</foreach>
+</if>
+
+order by 
+<if test="param.typeColumn == 0">
+t_studio.consumeMoney 
+ <if test="param.orderFlag == 0">asc</if>
+ <if test="param.orderFlag == 1">desc</if> 
+</if>
+
+<if test="param.typeColumn == 1">
+t_studio.gradeScore desc
+</if>
+
+</select>
+  
+  
+  
+</mapper>

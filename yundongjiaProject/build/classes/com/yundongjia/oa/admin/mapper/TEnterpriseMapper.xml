@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TEnterpriseMapper">
+	<resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TEnterprise">
+		<id column="enterprise_id" property="enterpriseId" jdbcType="INTEGER" />
+		<result column="regionsId" property="regionsid" jdbcType="INTEGER" />
+		<result column="operationId" property="operationid" jdbcType="INTEGER" />
+		<result column="enterpriseName" property="enterprisename"
+			jdbcType="VARCHAR" />
+		<result column="enterpriseScale" property="enterprisescale"
+			jdbcType="VARCHAR" />
+		<result column="enterpriseLogo" property="enterpriselogo"
+			jdbcType="VARCHAR" />
+		<result column="createDate" property="createdate" jdbcType="VARCHAR" />
+		<result column="enterpriseAddr" property="enterpriseaddr"
+			jdbcType="VARCHAR" />
+		<result column="enterpriseTel" property="enterprisetel"
+			jdbcType="VARCHAR" />
+		<result column="contactName" property="contactname" jdbcType="VARCHAR" />
+		<result column="isDel" property="isdel" jdbcType="VARCHAR" />
+		<result column="isActivity" property="isactivity" jdbcType="INTEGER" />
+		<result column="comm" property="comm" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		enterprise_id, regionsId, operationId, enterpriseName, enterpriseScale,
+		enterpriseLogo,
+		createDate, enterpriseAddr, enterpriseTel, contactName, isDel, isActivity, comm,
+		status
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.yundongjia.oa.admin.po.TEnterpriseExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_enterprise
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_enterprise
+		where enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_enterprise
+		where enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TEnterpriseExample">
+		delete from t_enterprise
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.yundongjia.oa.admin.po.TEnterprise">
+		insert into t_enterprise (enterprise_id, regionsId, operationId,
+		enterpriseName, enterpriseScale, enterpriseLogo,
+		createDate, enterpriseAddr, enterpriseTel,
+		contactName, isDel, isActivity,
+		comm, status)
+		values (#{enterpriseId,jdbcType=INTEGER}, #{regionsid,jdbcType=INTEGER},
+		#{operationid,jdbcType=INTEGER},
+		#{enterprisename,jdbcType=VARCHAR}, #{enterprisescale,jdbcType=VARCHAR},
+		#{enterpriselogo,jdbcType=VARCHAR},
+		#{createdate,jdbcType=VARCHAR}, #{enterpriseaddr,jdbcType=VARCHAR},
+		#{enterprisetel,jdbcType=VARCHAR},
+		#{contactname,jdbcType=VARCHAR}, #{isdel,jdbcType=VARCHAR}, #{isactivity,jdbcType=INTEGER},
+		#{comm,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TEnterprise">
+		insert into t_enterprise
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterprise_id,
+			</if>
+			<if test="regionsid != null">
+				regionsId,
+			</if>
+			<if test="operationid != null">
+				operationId,
+			</if>
+			<if test="enterprisename != null">
+				enterpriseName,
+			</if>
+			<if test="enterprisescale != null">
+				enterpriseScale,
+			</if>
+			<if test="enterpriselogo != null">
+				enterpriseLogo,
+			</if>
+			<if test="createdate != null">
+				createDate,
+			</if>
+			<if test="enterpriseaddr != null">
+				enterpriseAddr,
+			</if>
+			<if test="enterprisetel != null">
+				enterpriseTel,
+			</if>
+			<if test="contactname != null">
+				contactName,
+			</if>
+			<if test="isdel != null">
+				isDel,
+			</if>
+			<if test="isactivity != null">
+				isActivity,
+			</if>
+			<if test="comm != null">
+				comm,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId,jdbcType=INTEGER},
+			</if>
+			<if test="regionsid != null">
+				#{regionsid,jdbcType=INTEGER},
+			</if>
+			<if test="operationid != null">
+				#{operationid,jdbcType=INTEGER},
+			</if>
+			<if test="enterprisename != null">
+				#{enterprisename,jdbcType=VARCHAR},
+			</if>
+			<if test="enterprisescale != null">
+				#{enterprisescale,jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriselogo != null">
+				#{enterpriselogo,jdbcType=VARCHAR},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriseaddr != null">
+				#{enterpriseaddr,jdbcType=VARCHAR},
+			</if>
+			<if test="enterprisetel != null">
+				#{enterprisetel,jdbcType=VARCHAR},
+			</if>
+			<if test="contactname != null">
+				#{contactname,jdbcType=VARCHAR},
+			</if>
+			<if test="isdel != null">
+				#{isdel,jdbcType=VARCHAR},
+			</if>
+			<if test="isactivity != null">
+				#{isactivity,jdbcType=INTEGER},
+			</if>
+			<if test="comm != null">
+				#{comm,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+		</trim>
+
+		<selectKey keyColumn="enterprise_id" order="AFTER"
+			resultType="Integer" keyProperty="enterpriseid">
+			<!-- 获取当前线程最后一次插入的数据id , LAST_INSERT_ID()是mysql的内 置函数 -->
+			SELECT LAST_INSERT_ID() as lid
+		</selectKey>
+
+	</insert>
+	<select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TEnterpriseExample"
+		resultType="java.lang.Integer">
+		select count(*) from t_enterprise
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_enterprise
+		<set>
+			<if test="record.enterpriseId != null">
+				enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+			</if>
+			<if test="record.regionsid != null">
+				regionsId = #{record.regionsid,jdbcType=INTEGER},
+			</if>
+			<if test="record.operationid != null">
+				operationId = #{record.operationid,jdbcType=INTEGER},
+			</if>
+			<if test="record.enterprisename != null">
+				enterpriseName = #{record.enterprisename,jdbcType=VARCHAR},
+			</if>
+			<if test="record.enterprisescale != null">
+				enterpriseScale = #{record.enterprisescale,jdbcType=VARCHAR},
+			</if>
+			<if test="record.enterpriselogo != null">
+				enterpriseLogo = #{record.enterpriselogo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createdate != null">
+				createDate = #{record.createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="record.enterpriseaddr != null">
+				enterpriseAddr = #{record.enterpriseaddr,jdbcType=VARCHAR},
+			</if>
+			<if test="record.enterprisetel != null">
+				enterpriseTel = #{record.enterprisetel,jdbcType=VARCHAR},
+			</if>
+			<if test="record.contactname != null">
+				contactName = #{record.contactname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isdel != null">
+				isDel = #{record.isdel,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isactivity != null">
+				isActivity = #{record.isactivity,jdbcType=INTEGER},
+			</if>
+			<if test="record.comm != null">
+				comm = #{record.comm,jdbcType=VARCHAR},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_enterprise
+		set enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+		regionsId = #{record.regionsid,jdbcType=INTEGER},
+		operationId = #{record.operationid,jdbcType=INTEGER},
+		enterpriseName = #{record.enterprisename,jdbcType=VARCHAR},
+		enterpriseScale = #{record.enterprisescale,jdbcType=VARCHAR},
+		enterpriseLogo = #{record.enterpriselogo,jdbcType=VARCHAR},
+		createDate = #{record.createdate,jdbcType=VARCHAR},
+		enterpriseAddr = #{record.enterpriseaddr,jdbcType=VARCHAR},
+		enterpriseTel = #{record.enterprisetel,jdbcType=VARCHAR},
+		contactName = #{record.contactname,jdbcType=VARCHAR},
+		isDel = #{record.isdel,jdbcType=VARCHAR},
+		isActivity = #{record.isactivity,jdbcType=INTEGER},
+		comm = #{record.comm,jdbcType=VARCHAR},
+		status = #{record.status,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TEnterprise">
+		update t_enterprise
+		<set>
+			<if test="regionsid != null">
+				regionsId = #{regionsid,jdbcType=INTEGER},
+			</if>
+			<if test="operationid != null">
+				operationId = #{operationid,jdbcType=INTEGER},
+			</if>
+			<if test="enterprisename != null">
+				enterpriseName = #{enterprisename,jdbcType=VARCHAR},
+			</if>
+			<if test="enterprisescale != null">
+				enterpriseScale = #{enterprisescale,jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriselogo != null">
+				enterpriseLogo = #{enterpriselogo,jdbcType=VARCHAR},
+			</if>
+			<if test="createdate != null">
+				createDate = #{createdate,jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriseaddr != null">
+				enterpriseAddr = #{enterpriseaddr,jdbcType=VARCHAR},
+			</if>
+			<if test="enterprisetel != null">
+				enterpriseTel = #{enterprisetel,jdbcType=VARCHAR},
+			</if>
+			<if test="contactname != null">
+				contactName = #{contactname,jdbcType=VARCHAR},
+			</if>
+			<if test="isdel != null">
+				isDel = #{isdel,jdbcType=VARCHAR},
+			</if>
+			<if test="isactivity != null">
+				isActivity = #{isactivity,jdbcType=INTEGER},
+			</if>
+			<if test="comm != null">
+				comm = #{comm,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+		</set>
+		where enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TEnterprise">
+		update t_enterprise
+		set regionsId = #{regionsid,jdbcType=INTEGER},
+		operationId = #{operationid,jdbcType=INTEGER},
+		enterpriseName = #{enterprisename,jdbcType=VARCHAR},
+		enterpriseScale = #{enterprisescale,jdbcType=VARCHAR},
+		enterpriseLogo = #{enterpriselogo,jdbcType=VARCHAR},
+		createDate = #{createdate,jdbcType=VARCHAR},
+		enterpriseAddr = #{enterpriseaddr,jdbcType=VARCHAR},
+		enterpriseTel = #{enterprisetel,jdbcType=VARCHAR},
+		contactName = #{contactname,jdbcType=VARCHAR},
+		isDel = #{isdel,jdbcType=VARCHAR},
+		isActivity = #{isactivity,jdbcType=INTEGER},
+		comm = #{comm,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER}
+		where enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- hj  根据企业id查询 -->
+	<select id="getEnterpriseById" parameterType="java.lang.Integer"
+	resultType="java.util.Map">
+	select t_enterprise.*,t_admin.backuserName from t_enterprise
+	inner join t_admin
+	on t_enterprise.operationId = t_admin.backuserId
+	<if test="id != -1">
+	 where t_enterprise.enterprise_id = #{id}
+	</if>
+	order by t_enterprise.enterprise_id desc
+</select>
+
+	 <!-- hj 全查企业卡 -->
+	<select id="findEnterpriseAndCard" resultType="java.util.Map">
+		select * from t_enterprise  order by t_enterprise.createDate desc
+	</select>
+
+	<!--hj 模糊查询企业名称 -->
+	<select id="getEnterpriseByName" parameterType="java.lang.String" resultType="java.util.Map">
+	 select * from t_enterprise  where t_enterprise.enterpriseName like #{name} order by t_enterprise.createDate desc
+	</select>
+	
+	<!-- hj 修改企业状态 -->
+	<update id="updateEnterpriseStatusById" parameterType="java.util.Map" >
+		update t_enterprise set t_enterprise.`status` = #{param.status} where t_enterprise.enterprise_id = #{param.enterId}
+	</update>
+	
+	<!-- hj 企业 首页统计 -->
+	<select id="getEnterpriseByStatisMessage" resultType="java.util.Map">
+	select
+	sum(sportsCount) as 'sportsNumber',
+	sum(sportsCount) - sum(surplusSportsCount) as 'moveNumber',
+	sum(realMoney) as 'realMoney'
+	from t_member_card_order_ref as tcor
+	where tcor.enterpriseId > -1
+</select>
+	
+	
+	
+</mapper>

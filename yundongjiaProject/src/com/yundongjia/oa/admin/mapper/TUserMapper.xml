@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TUserMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TUser" >
+    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="mobilePhoneNo" property="mobilephoneno" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="userType" property="usertype" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="isValid" property="isvalid" jdbcType="VARCHAR" />
+    <result column="isValidRemark" property="isvalidremark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userId, unionid, mobilePhoneNo, password, userType, createDate, isValid, isValidRemark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TUserExample" >
+    delete from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TUser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user (unionid, mobilePhoneNo, password, 
+      userType, createDate, isValid, 
+      isValidRemark)
+    values (#{unionid,jdbcType=VARCHAR}, #{mobilephoneno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{usertype,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, #{isvalid,jdbcType=VARCHAR}, 
+      #{isvalidremark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TUser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="mobilephoneno != null" >
+        mobilePhoneNo,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="usertype != null" >
+        userType,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="isvalid != null" >
+        isValid,
+      </if>
+      <if test="isvalidremark != null" >
+        isValidRemark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephoneno != null" >
+        #{mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        #{isvalid,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalidremark != null" >
+        #{isvalidremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TUserExample" resultType="java.lang.Integer" >
+    select count(*) from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user
+    <set >
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.unionid != null" >
+        unionid = #{record.unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephoneno != null" >
+        mobilePhoneNo = #{record.mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usertype != null" >
+        userType = #{record.usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isvalid != null" >
+        isValid = #{record.isvalid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isvalidremark != null" >
+        isValidRemark = #{record.isvalidremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user
+    set userId = #{record.userid,jdbcType=INTEGER},
+      unionid = #{record.unionid,jdbcType=VARCHAR},
+      mobilePhoneNo = #{record.mobilephoneno,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      userType = #{record.usertype,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      isValid = #{record.isvalid,jdbcType=VARCHAR},
+      isValidRemark = #{record.isvalidremark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TUser" >
+    update t_user
+    <set >
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephoneno != null" >
+        mobilePhoneNo = #{mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        userType = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        isValid = #{isvalid,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalidremark != null" >
+        isValidRemark = #{isvalidremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TUser" >
+    update t_user
+    set unionid = #{unionid,jdbcType=VARCHAR},
+      mobilePhoneNo = #{mobilephoneno,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      userType = #{usertype,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      isValid = #{isvalid,jdbcType=VARCHAR},
+      isValidRemark = #{isvalidremark,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 手写sql -->
+  
+  <!-- hj 根据企业卡查询用户，和条件查询手机号码 -->
+  <select id="findTuserListByMobilePhone" parameterType="java.util.Map" resultType="java.util.HashMap">
+  select * from t_user
+inner join t_member
+inner join t_member_card_enterprise_ref as tcer
+inner join t_member_card_order_ref as cardorder
+on tcer.memberId = t_member.memberId
+and t_member.userId = t_user.userId
+and cardorder.orderId = tcer.cardId
+
+and cardorder.orderId = #{param.cardId}
+<if test="param.mobilePhone != null">
+  and t_user.mobilePhoneNo like #{param.mobilePhone}
+</if>
+
+order by t_user.createDate desc
+  </select>
+  
+  <!-- hj  根据用户id查询详情 -->
+  <select id="getTuserById" parameterType="java.lang.Integer" resultType="java.util.Map">
+    select * from t_user
+inner join t_member
+inner join t_member_card_enterprise_ref as tcer
+inner join t_member_card_order_ref as cardorder
+on tcer.memberId = t_member.memberId
+and t_member.userId = t_user.userId
+and cardorder.orderId = tcer.cardId
+and t_user.userId = #{userId}
+order by t_user.createDate desc
+  </select>
+  
+  
+  <!-- hj 查询手机号码是否已存在 -->
+  <select id="getTuserMobilePhoneCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+     select count(1) from
+     <if test="param.tableType == 0">
+         t_user where t_user.mobilePhoneNo
+     </if> 
+     <if test="param.tableType == 1">
+     	t_studio where studioTel = #{param.mobilePhone} or superTel
+     </if>
+     <if test="param.tableType == 2">
+      t_coach_user where t_coach_user.mobilePhoneNo
+     </if>
+     <if test="param.tableType == 3">
+      t_enterprise where t_enterprise.enterpriseTel
+     </if>
+     
+     <if test="param.tableType == 4">
+      t_member
+inner join t_member_card_enterprise_ref
+inner join t_user
+inner join t_member_card_order_ref
+on t_member.memberId = t_member_card_enterprise_ref.memberId
+and t_member.userId = t_user.userId
+and t_member_card_order_ref.orderId = t_member_card_enterprise_ref.cardId
+and t_member_card_order_ref.cardTypeId = -1 and t_user.mobilePhoneNo
+     </if>
+     
+      = #{param.mobilePhone}
+  </select>
+  
+  <!-- lxy 查询用户列表信息 -->
+  <select id="findMemberList" parameterType="java.util.Map" resultType="java.util.Map">
+	select tr.name,tu.mobilePhoneNo,tu.userId,tu.isValid,tu.createDate,tu.userType,tm.*
+	 from t_member tm join t_regions tr join t_user tu 
+	 on tm.regionsId = tr.id
+	 	and tm.userId = tu.userId
+	<if test="info != null">
+	  and tu.mobilePhoneNo like #{info}
+	</if>
+	<if test="userId != null">
+		and tu.userId = #{userId}
+	</if>
+	order by tu.createDate desc
+  </select>
+  
+  <!--hj  查询改手机号码是否已经绑卡 -->
+  <select id="selectUserEnterByPhone" parameterType="java.lang.String" resultType="java.util.Map">
+  		select * from t_member
+inner join t_member_card_enterprise_ref
+inner join t_user
+inner join t_member_card_order_ref
+on t_member.memberId = t_member_card_enterprise_ref.memberId
+and t_member.userId = t_user.userId
+and t_member_card_order_ref.orderId = t_member_card_enterprise_ref.cardId
+and t_member_card_order_ref.memberId = -1 and t_user.mobilePhoneNo = #{mobilePhone}
+  </select>
+  <!--hj 查询用户与会员手机号码是否存在  -->
+  <select id="selectUserMemberByPhone" parameterType="java.lang.String" resultType="java.util.Map">
+   select * from t_user
+inner join t_member
+on t_user.userId = t_member.userId
+and t_user.mobilePhoneNo = #{mobilePhone}
+  </select>
+  
+  <!-- 企业端  全查或条件查询  手机号码查询  企业卡查询 -->
+  <select id="findUserByMobilePhoneCards" parameterType="java.util.Map" resultType="java.util.Map">
+      select * from t_user
+	inner join t_member
+	inner join t_member_card_enterprise_ref as tcer
+	inner join t_member_card_order_ref as cardorder
+	on tcer.memberId = t_member.memberId
+	and t_member.userId = t_user.userId
+	and cardorder.orderId = tcer.cardId
+	
+	
+	
+	<if test="param.cards != null">
+	   and cardorder.orderId in
+	  <foreach collection="param.cards" item="cId" separator="," open="(" close=")">
+	   #{cId}
+	  </foreach>
+	</if>
+	
+	<if test="param.mobilePhone != null">
+	  and t_user.mobilePhoneNo like #{param.mobilePhone}
+	</if>
+	
+	order by t_user.createDate desc
+  </select>
+  
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TMemberRouteMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TMemberRoute" >
+    <id column="rowId" property="rowid" jdbcType="INTEGER" />
+    <result column="memberId" property="memberid" jdbcType="INTEGER" />
+    <result column="routeNum" property="routenum" jdbcType="INTEGER" />
+    <result column="routeDate" property="routedate" jdbcType="VARCHAR" />
+    <result column="updateDate" property="updatedate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rowId, memberId, routeNum, routeDate, updateDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TMemberRouteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_member_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_route
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member_route
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TMemberRouteExample" >
+    delete from t_member_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TMemberRoute" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rowid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_member_route (memberId, routeNum, routeDate, 
+      updateDate)
+    values (#{memberid,jdbcType=INTEGER}, #{routenum,jdbcType=INTEGER}, #{routedate,jdbcType=VARCHAR}, 
+      #{updatedate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TMemberRoute" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rowid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_member_route
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberid != null" >
+        memberId,
+      </if>
+      <if test="routenum != null" >
+        routeNum,
+      </if>
+      <if test="routedate != null" >
+        routeDate,
+      </if>
+      <if test="updatedate != null" >
+        updateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberid != null" >
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="routenum != null" >
+        #{routenum,jdbcType=INTEGER},
+      </if>
+      <if test="routedate != null" >
+        #{routedate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TMemberRouteExample" resultType="java.lang.Integer" >
+    select count(*) from t_member_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_member_route
+    <set >
+      <if test="record.rowid != null" >
+        rowId = #{record.rowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberid != null" >
+        memberId = #{record.memberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.routenum != null" >
+        routeNum = #{record.routenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.routedate != null" >
+        routeDate = #{record.routedate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedate != null" >
+        updateDate = #{record.updatedate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_member_route
+    set rowId = #{record.rowid,jdbcType=INTEGER},
+      memberId = #{record.memberid,jdbcType=INTEGER},
+      routeNum = #{record.routenum,jdbcType=INTEGER},
+      routeDate = #{record.routedate,jdbcType=VARCHAR},
+      updateDate = #{record.updatedate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TMemberRoute" >
+    update t_member_route
+    <set >
+      <if test="memberid != null" >
+        memberId = #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="routenum != null" >
+        routeNum = #{routenum,jdbcType=INTEGER},
+      </if>
+      <if test="routedate != null" >
+        routeDate = #{routedate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        updateDate = #{updatedate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TMemberRoute" >
+    update t_member_route
+    set memberId = #{memberid,jdbcType=INTEGER},
+      routeNum = #{routenum,jdbcType=INTEGER},
+      routeDate = #{routedate,jdbcType=VARCHAR},
+      updateDate = #{updatedate,jdbcType=VARCHAR}
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TApplyAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TApplyAccount" >
+    <id column="rowdId" property="rowdid" jdbcType="INTEGER" />
+    <result column="accountNo" property="accountno" jdbcType="VARCHAR" />
+    <result column="accountName" property="accountname" jdbcType="VARCHAR" />
+    <result column="likeId" property="likeid" jdbcType="INTEGER" />
+    <result column="likeType" property="liketype" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rowdId, accountNo, accountName, likeId, likeType, status, createDate, type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TApplyAccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_apply_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_apply_account
+    where rowdId = #{rowdid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_apply_account
+    where rowdId = #{rowdid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TApplyAccountExample" >
+    delete from t_apply_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TApplyAccount" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rowdid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_apply_account (accountNo, accountName, likeId, 
+      likeType, status, createDate, 
+      type)
+    values (#{accountno,jdbcType=VARCHAR}, #{accountname,jdbcType=VARCHAR}, #{likeid,jdbcType=INTEGER}, 
+      #{liketype,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TApplyAccount" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rowdid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_apply_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountno != null" >
+        accountNo,
+      </if>
+      <if test="accountname != null" >
+        accountName,
+      </if>
+      <if test="likeid != null" >
+        likeId,
+      </if>
+      <if test="liketype != null" >
+        likeType,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountno != null" >
+        #{accountno,jdbcType=VARCHAR},
+      </if>
+      <if test="accountname != null" >
+        #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="likeid != null" >
+        #{likeid,jdbcType=INTEGER},
+      </if>
+      <if test="liketype != null" >
+        #{liketype,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TApplyAccountExample" resultType="java.lang.Integer" >
+    select count(*) from t_apply_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_apply_account
+    <set >
+      <if test="record.rowdid != null" >
+        rowdId = #{record.rowdid,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountno != null" >
+        accountNo = #{record.accountno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountname != null" >
+        accountName = #{record.accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeid != null" >
+        likeId = #{record.likeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.liketype != null" >
+        likeType = #{record.liketype,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_apply_account
+    set rowdId = #{record.rowdid,jdbcType=INTEGER},
+      accountNo = #{record.accountno,jdbcType=VARCHAR},
+      accountName = #{record.accountname,jdbcType=VARCHAR},
+      likeId = #{record.likeid,jdbcType=INTEGER},
+      likeType = #{record.liketype,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TApplyAccount" >
+    update t_apply_account
+    <set >
+      <if test="accountno != null" >
+        accountNo = #{accountno,jdbcType=VARCHAR},
+      </if>
+      <if test="accountname != null" >
+        accountName = #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="likeid != null" >
+        likeId = #{likeid,jdbcType=INTEGER},
+      </if>
+      <if test="liketype != null" >
+        likeType = #{liketype,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rowdId = #{rowdid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TApplyAccount" >
+    update t_apply_account
+    set accountNo = #{accountno,jdbcType=VARCHAR},
+      accountName = #{accountname,jdbcType=VARCHAR},
+      likeId = #{likeid,jdbcType=INTEGER},
+      likeType = #{liketype,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where rowdId = #{rowdid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TMember" >
+    <id column="memberId" property="memberid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="bornDate" property="borndate" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="waist" property="waist" jdbcType="VARCHAR" />
+    <result column="imgpath" property="imgpath" jdbcType="VARCHAR" />
+    <result column="autograph" property="autograph" jdbcType="VARCHAR" />
+    <result column="firstLogDate" property="firstlogdate" jdbcType="VARCHAR" />
+    <result column="redAmount" property="redamount" jdbcType="DOUBLE" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="regionsId" property="regionsid" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    memberId, userId, nickName, bornDate, gender, height, waist, imgpath, autograph, 
+    firstLogDate, redAmount, department, email, regionsId, balance
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TMemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member
+    where memberId = #{memberid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member
+    where memberId = #{memberid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TMemberExample" >
+    delete from t_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TMember" >
+    insert into t_member (memberId, userId, nickName, 
+      bornDate, gender, height, 
+      waist, imgpath, autograph, 
+      firstLogDate, redAmount, department, 
+      email, regionsId, balance
+      )
+    values (#{memberid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, 
+      #{borndate,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{height,jdbcType=DOUBLE}, 
+      #{waist,jdbcType=VARCHAR}, #{imgpath,jdbcType=VARCHAR}, #{autograph,jdbcType=VARCHAR}, 
+      #{firstlogdate,jdbcType=VARCHAR}, #{redamount,jdbcType=DOUBLE}, #{department,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{regionsid,jdbcType=INTEGER}, #{balance,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TMember" >
+    insert into t_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberid != null" >
+        memberId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="nickname != null" >
+        nickName,
+      </if>
+      <if test="borndate != null" >
+        bornDate,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="waist != null" >
+        waist,
+      </if>
+      <if test="imgpath != null" >
+        imgpath,
+      </if>
+      <if test="autograph != null" >
+        autograph,
+      </if>
+      <if test="firstlogdate != null" >
+        firstLogDate,
+      </if>
+      <if test="redamount != null" >
+        redAmount,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="regionsid != null" >
+        regionsId,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberid != null" >
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="borndate != null" >
+        #{borndate,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="waist != null" >
+        #{waist,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="autograph != null" >
+        #{autograph,jdbcType=VARCHAR},
+      </if>
+      <if test="firstlogdate != null" >
+        #{firstlogdate,jdbcType=VARCHAR},
+      </if>
+      <if test="redamount != null" >
+        #{redamount,jdbcType=DOUBLE},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="regionsid != null" >
+        #{regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+    </trim>
+     <selectKey keyColumn="memberId" order="AFTER"
+			resultType="Integer" keyProperty="memberid">
+			<!-- 获取当前线程最后一次插入的数据id , LAST_INSERT_ID()是mysql的内 置函数 -->
+			SELECT LAST_INSERT_ID() as lid
+	</selectKey>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TMemberExample" resultType="java.lang.Integer" >
+    select count(*) from t_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_member
+    <set >
+      <if test="record.memberid != null" >
+        memberId = #{record.memberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickname != null" >
+        nickName = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borndate != null" >
+        bornDate = #{record.borndate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=DOUBLE},
+      </if>
+      <if test="record.waist != null" >
+        waist = #{record.waist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgpath != null" >
+        imgpath = #{record.imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.autograph != null" >
+        autograph = #{record.autograph,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstlogdate != null" >
+        firstLogDate = #{record.firstlogdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redamount != null" >
+        redAmount = #{record.redamount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionsid != null" >
+        regionsId = #{record.regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_member
+    set memberId = #{record.memberid,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      nickName = #{record.nickname,jdbcType=VARCHAR},
+      bornDate = #{record.borndate,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      height = #{record.height,jdbcType=DOUBLE},
+      waist = #{record.waist,jdbcType=VARCHAR},
+      imgpath = #{record.imgpath,jdbcType=VARCHAR},
+      autograph = #{record.autograph,jdbcType=VARCHAR},
+      firstLogDate = #{record.firstlogdate,jdbcType=VARCHAR},
+      redAmount = #{record.redamount,jdbcType=DOUBLE},
+      department = #{record.department,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      regionsId = #{record.regionsid,jdbcType=INTEGER},
+      balance = #{record.balance,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TMember" >
+    update t_member
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        nickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="borndate != null" >
+        bornDate = #{borndate,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="waist != null" >
+        waist = #{waist,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        imgpath = #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="autograph != null" >
+        autograph = #{autograph,jdbcType=VARCHAR},
+      </if>
+      <if test="firstlogdate != null" >
+        firstLogDate = #{firstlogdate,jdbcType=VARCHAR},
+      </if>
+      <if test="redamount != null" >
+        redAmount = #{redamount,jdbcType=DOUBLE},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="regionsid != null" >
+        regionsId = #{regionsid,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where memberId = #{memberid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TMember" >
+    update t_member
+    set userId = #{userid,jdbcType=INTEGER},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      bornDate = #{borndate,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      height = #{height,jdbcType=DOUBLE},
+      waist = #{waist,jdbcType=VARCHAR},
+      imgpath = #{imgpath,jdbcType=VARCHAR},
+      autograph = #{autograph,jdbcType=VARCHAR},
+      firstLogDate = #{firstlogdate,jdbcType=VARCHAR},
+      redAmount = #{redamount,jdbcType=DOUBLE},
+      department = #{department,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      regionsId = #{regionsid,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=DOUBLE}
+    where memberId = #{memberid,jdbcType=INTEGER}
+  </update>
+  <!-- 根据用户ID查询是否是会员   user不确定是哪张表-->
+  <select id="findIsMemberById" parameterType="java.lang.String" resultType="java.util.Map">
+select * from t_member_card_order_ref
+inner join t_member
+on t_member_card_order_ref.memberId = t_member.memberId
+inner join t_user
+on t_member.userId = t_user.userId
+and t_member_card_order_ref.memberId > -1
+
+and t_user.userId = #{userId}
+  </select>
+  
+</mapper>

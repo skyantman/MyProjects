@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TApply" >
+    <id column="rowId" property="rowid" jdbcType="INTEGER" />
+    <result column="orderNum" property="ordernum" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="payStatus" property="paystatus" jdbcType="VARCHAR" />
+    <result column="messageStatus" property="messagestatus" jdbcType="VARCHAR" />
+    <result column="orderMemo" property="ordermemo" jdbcType="VARCHAR" />
+    <result column="applyStatus" property="applystatus" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="appAccountId" property="appaccountid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rowId, orderNum, amount, createDate, payStatus, messageStatus, orderMemo, applyStatus, 
+    status, appAccountId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_apply
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_apply
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TApplyExample" >
+    delete from t_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TApply" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rowid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_apply (orderNum, amount, createDate, 
+      payStatus, messageStatus, orderMemo, 
+      applyStatus, status, appAccountId
+      )
+    values (#{ordernum,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, #{createdate,jdbcType=VARCHAR}, 
+      #{paystatus,jdbcType=VARCHAR}, #{messagestatus,jdbcType=VARCHAR}, #{ordermemo,jdbcType=VARCHAR}, 
+      #{applystatus,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{appaccountid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TApply" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rowid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordernum != null" >
+        orderNum,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="paystatus != null" >
+        payStatus,
+      </if>
+      <if test="messagestatus != null" >
+        messageStatus,
+      </if>
+      <if test="ordermemo != null" >
+        orderMemo,
+      </if>
+      <if test="applystatus != null" >
+        applyStatus,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="appaccountid != null" >
+        appAccountId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="messagestatus != null" >
+        #{messagestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermemo != null" >
+        #{ordermemo,jdbcType=VARCHAR},
+      </if>
+      <if test="applystatus != null" >
+        #{applystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="appaccountid != null" >
+        #{appaccountid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TApplyExample" resultType="java.lang.Integer" >
+    select count(*) from t_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_apply
+    <set >
+      <if test="record.rowid != null" >
+        rowId = #{record.rowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordernum != null" >
+        orderNum = #{record.ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paystatus != null" >
+        payStatus = #{record.paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messagestatus != null" >
+        messageStatus = #{record.messagestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordermemo != null" >
+        orderMemo = #{record.ordermemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applystatus != null" >
+        applyStatus = #{record.applystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appaccountid != null" >
+        appAccountId = #{record.appaccountid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_apply
+    set rowId = #{record.rowid,jdbcType=INTEGER},
+      orderNum = #{record.ordernum,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DOUBLE},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      payStatus = #{record.paystatus,jdbcType=VARCHAR},
+      messageStatus = #{record.messagestatus,jdbcType=VARCHAR},
+      orderMemo = #{record.ordermemo,jdbcType=VARCHAR},
+      applyStatus = #{record.applystatus,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      appAccountId = #{record.appaccountid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TApply" >
+    update t_apply
+    <set >
+      <if test="ordernum != null" >
+        orderNum = #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        payStatus = #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="messagestatus != null" >
+        messageStatus = #{messagestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ordermemo != null" >
+        orderMemo = #{ordermemo,jdbcType=VARCHAR},
+      </if>
+      <if test="applystatus != null" >
+        applyStatus = #{applystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="appaccountid != null" >
+        appAccountId = #{appaccountid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TApply" >
+    update t_apply
+    set orderNum = #{ordernum,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DOUBLE},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      payStatus = #{paystatus,jdbcType=VARCHAR},
+      messageStatus = #{messagestatus,jdbcType=VARCHAR},
+      orderMemo = #{ordermemo,jdbcType=VARCHAR},
+      applyStatus = #{applystatus,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      appAccountId = #{appaccountid,jdbcType=INTEGER}
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+    <!-- hj  全查或条件查询 -->
+  <select id="findApplyList" parameterType="java.util.Map" resultType="java.util.Map">
+     select * from t_apply
+
+inner join t_apply_account
+inner join t_supplier
+inner join t_supplier_login
+
+on t_apply.appAccountId = t_apply_account.rowdId
+and t_apply_account.likeType = 4
+and t_supplier.rowId = t_apply_account.likeId
+
+and t_supplier_login.supplierLoginId = t_supplier.supplierLoginId
+ 
+ 
+ <if test="param.id !=null and param.id !='' ">
+ 	and  t_apply.rowId = #{param.id}
+ </if>
+ 
+ <if test="param.startDate !='' and param.endDate != '' ">
+    and t_apply.createDate between #{param.startDate} and #{param.endDate}
+ </if>
+ 
+ <if test="param.mobilePhoneNum !=null and param.mobilePhoneNum !='' ">
+  and t_supplier_login.loginMobilePhone like #{param.mobilePhoneNum}
+ </if>
+ 
+ <if test="param.applyStatus != -1  ">
+  and t_apply.applyStatus = #{param.applyStatus}
+ </if>
+ 
+ order by t_apply.createDate desc 
+  </select>
+  <!--hj  根据不同状态统计金额 -->
+  <select id="selectApplySumMoneyByApplyStatus" parameterType="java.lang.Integer" resultType="java.lang.String">
+  	select sum(t_apply.amount) from t_apply where t_apply.applyStatus = #{aStatus}
+  </select>
+  
+  <!--hj 状态0 需审批订单数  -->
+  <select id="selectApplyCountNum" parameterType="java.lang.Integer" resultType="java.lang.String">
+     select count(1) from t_apply where t_apply.applyStatus = #{aStatus}
+  </select>
+  
+  <!--hj 今日订单数  -->
+  <select id="selectTodayCountNum" resultType="java.lang.String">
+     select count(1) from t_apply where DATE_FORMAT(t_apply.createDate,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d')
+  </select>
+  
+  <!--hj 待提现金额  -->
+  <select id="selectStayApplyMoney" resultType="java.lang.String">
+     select sum(t_supplier.balance) from t_supplier 
+  </select>
+  
+  
+  
+</mapper>

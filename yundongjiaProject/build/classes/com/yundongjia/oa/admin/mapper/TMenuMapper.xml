@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TMenuMapper">
+	<resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TMenu">
+		<id column="menu_id" property="menuId" jdbcType="INTEGER" />
+		<result column="menu_status" property="menuStatus" jdbcType="VARCHAR" />
+		<result column="menu_pid" property="menuPid" jdbcType="VARCHAR" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="menu_ordernum" property="menuOrdernum"
+			jdbcType="INTEGER" />
+		<result column="menu_isshow" property="menuIsshow" jdbcType="TINYINT" />
+		<result column="menu_pathname" property="menuPathname"
+			jdbcType="VARCHAR" />
+		<result column="menu_isroot" property="menuIsroot" jdbcType="TINYINT" />
+		<result column="menu_isdel" property="menuIsdel" jdbcType="TINYINT" />
+		<result column="menu_powerid" property="menuPowerid" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		menu_id, menu_status, menu_pid, menu_name, menu_ordernum, menu_isshow,
+		menu_pathname,
+		menu_isroot, menu_isdel, menu_powerid
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.yundongjia.oa.admin.po.TMenuExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_menu
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_menu
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TMenuExample">
+		delete from t_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.yundongjia.oa.admin.po.TMenu">
+		insert into t_menu (menu_id, menu_status, menu_pid,
+		menu_name, menu_ordernum, menu_isshow,
+		menu_pathname, menu_isroot, menu_isdel,
+		menu_powerid)
+		values (#{menuId,jdbcType=INTEGER}, #{menuStatus,jdbcType=VARCHAR},
+		#{menuPid,jdbcType=VARCHAR},
+		#{menuName,jdbcType=VARCHAR}, #{menuOrdernum,jdbcType=INTEGER}, #{menuIsshow,jdbcType=TINYINT},
+		#{menuPathname,jdbcType=VARCHAR}, #{menuIsroot,jdbcType=TINYINT},
+		#{menuIsdel,jdbcType=TINYINT},
+		#{menuPowerid,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TMenu">
+		insert into t_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				menu_id,
+			</if>
+			<if test="menuStatus != null">
+				menu_status,
+			</if>
+			<if test="menuPid != null">
+				menu_pid,
+			</if>
+			<if test="menuName != null">
+				menu_name,
+			</if>
+			<if test="menuOrdernum != null">
+				menu_ordernum,
+			</if>
+			<if test="menuIsshow != null">
+				menu_isshow,
+			</if>
+			<if test="menuPathname != null">
+				menu_pathname,
+			</if>
+			<if test="menuIsroot != null">
+				menu_isroot,
+			</if>
+			<if test="menuIsdel != null">
+				menu_isdel,
+			</if>
+			<if test="menuPowerid != null">
+				menu_powerid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				#{menuId,jdbcType=INTEGER},
+			</if>
+			<if test="menuStatus != null">
+				#{menuStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="menuPid != null">
+				#{menuPid,jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null">
+				#{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuOrdernum != null">
+				#{menuOrdernum,jdbcType=INTEGER},
+			</if>
+			<if test="menuIsshow != null">
+				#{menuIsshow,jdbcType=TINYINT},
+			</if>
+			<if test="menuPathname != null">
+				#{menuPathname,jdbcType=VARCHAR},
+			</if>
+			<if test="menuIsroot != null">
+				#{menuIsroot,jdbcType=TINYINT},
+			</if>
+			<if test="menuIsdel != null">
+				#{menuIsdel,jdbcType=TINYINT},
+			</if>
+			<if test="menuPowerid != null">
+				#{menuPowerid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+
+		<selectKey keyColumn="menu_id" order="AFTER" resultType="Integer"
+			keyProperty="menuId">
+			<!-- 获取当前线程最后一次插入的数据id , LAST_INSERT_ID()是mysql的内置函数 -->
+			SELECT LAST_INSERT_ID() as lid
+		</selectKey>
+
+	</insert>
+	<select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TMenuExample"
+		resultType="java.lang.Integer">
+		select count(*) from t_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_menu
+		<set>
+			<if test="record.menuId != null">
+				menu_id = #{record.menuId,jdbcType=INTEGER},
+			</if>
+			<if test="record.menuStatus != null">
+				menu_status = #{record.menuStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuPid != null">
+				menu_pid = #{record.menuPid,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuName != null">
+				menu_name = #{record.menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuOrdernum != null">
+				menu_ordernum = #{record.menuOrdernum,jdbcType=INTEGER},
+			</if>
+			<if test="record.menuIsshow != null">
+				menu_isshow = #{record.menuIsshow,jdbcType=TINYINT},
+			</if>
+			<if test="record.menuPathname != null">
+				menu_pathname = #{record.menuPathname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.menuIsroot != null">
+				menu_isroot = #{record.menuIsroot,jdbcType=TINYINT},
+			</if>
+			<if test="record.menuIsdel != null">
+				menu_isdel = #{record.menuIsdel,jdbcType=TINYINT},
+			</if>
+			<if test="record.menuPowerid != null">
+				menu_powerid = #{record.menuPowerid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_menu
+		set menu_id = #{record.menuId,jdbcType=INTEGER},
+		menu_status = #{record.menuStatus,jdbcType=VARCHAR},
+		menu_pid = #{record.menuPid,jdbcType=VARCHAR},
+		menu_name = #{record.menuName,jdbcType=VARCHAR},
+		menu_ordernum = #{record.menuOrdernum,jdbcType=INTEGER},
+		menu_isshow = #{record.menuIsshow,jdbcType=TINYINT},
+		menu_pathname = #{record.menuPathname,jdbcType=VARCHAR},
+		menu_isroot = #{record.menuIsroot,jdbcType=TINYINT},
+		menu_isdel = #{record.menuIsdel,jdbcType=TINYINT},
+		menu_powerid = #{record.menuPowerid,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TMenu">
+		update t_menu
+		<set>
+			<if test="menuStatus != null">
+				menu_status = #{menuStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="menuPid != null">
+				menu_pid = #{menuPid,jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null">
+				menu_name = #{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuOrdernum != null">
+				menu_ordernum = #{menuOrdernum,jdbcType=INTEGER},
+			</if>
+			<if test="menuIsshow != null">
+				menu_isshow = #{menuIsshow,jdbcType=TINYINT},
+			</if>
+			<if test="menuPathname != null">
+				menu_pathname = #{menuPathname,jdbcType=VARCHAR},
+			</if>
+			<if test="menuIsroot != null">
+				menu_isroot = #{menuIsroot,jdbcType=TINYINT},
+			</if>
+			<if test="menuIsdel != null">
+				menu_isdel = #{menuIsdel,jdbcType=TINYINT},
+			</if>
+			<if test="menuPowerid != null">
+				menu_powerid = #{menuPowerid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TMenu">
+		update t_menu
+		set menu_status = #{menuStatus,jdbcType=VARCHAR},
+		menu_pid = #{menuPid,jdbcType=VARCHAR},
+		menu_name = #{menuName,jdbcType=VARCHAR},
+		menu_ordernum = #{menuOrdernum,jdbcType=INTEGER},
+		menu_isshow = #{menuIsshow,jdbcType=TINYINT},
+		menu_pathname = #{menuPathname,jdbcType=VARCHAR},
+		menu_isroot = #{menuIsroot,jdbcType=TINYINT},
+		menu_isdel = #{menuIsdel,jdbcType=TINYINT},
+		menu_powerid = #{menuPowerid,jdbcType=VARCHAR}
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</update>
+	<!-- 手写SQL -->
+	<resultMap id="MenuVo" type="com.yundongjia.oa.admin.vo.MenuVo">
+		<id column="menu_id" jdbcType="INTEGER" property="menuId" />
+		<result column="menu_pid" jdbcType="INTEGER" property="menuPid" />
+		<result column="menu_type" jdbcType="TINYINT" property="menuType" />
+		<result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+		<result column="menu_ordernum" jdbcType="INTEGER" property="menuOrdernum" />
+		<result column="menu_isshow" jdbcType="TINYINT" property="menuIsshow" />
+		<result column="menu_pathname" jdbcType="VARCHAR" property="menuPathname" />
+		<result column="menu_isroot" jdbcType="TINYINT" property="menuIsroot" />
+		<result column="menu_isdel" jdbcType="TINYINT" property="menuIsdel" />
+		<result column="menu_powerid" jdbcType="VARCHAR" property="menuPowerid" />
+		<result column="auth_id" jdbcType="INTEGER" property="auth.authId" />
+		<result column="auth_menu_id" jdbcType="INTEGER" property="auth.authMenuId" />
+		<result column="auth_name" jdbcType="VARCHAR" property="auth.authName" />
+		<result column="auth_isopen" jdbcType="TINYINT" property="auth.authIsopen" />
+		<result column="auth_ordernum" jdbcType="INTEGER" property="auth.authOrdernum" />
+		<result column="auth_opname" jdbcType="VARCHAR" property="auth.authOpname" />
+		<result column="auth_comm" jdbcType="VARCHAR" property="auth.authComm" />
+		<result column="auth_create_date" jdbcType="TIMESTAMP"
+			property="auth.authCreateDate" />
+		<result column="auth_operatorid" jdbcType="INTEGER" property="auth.authOperatorid" />
+	</resultMap>
+	<!--查询gym工作人员菜单 -->
+	<select id="selectUserMenuByUserId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT m.*
+		FROM t_menu m
+		JOIN t_menu_admin_ref mu ON m.menu_id=mu.menu_admin_menu_id
+		JOIN t_role r ON r.role_id=mu.menu_admin_role_id
+		JOIN t_admin u ON u.backuserRoleId=r.role_id
+		WHERE m.menu_isdel=0
+		AND m.menu_isshow=1
+		AND u.backuserId=#{userId,jdbcType=INTEGER}
+		ORDER BY m.menu_isroot DESC, m.menu_ordernum DESC
+	</select>
+	<!--查询健身房菜单权限树 -->
+	<select id="selectGYMTree" resultMap="MenuVo">
+		SELECT *
+		FROM t_menu m LEFT JOIN t_auth a ON m.menu_id=a.auth_menu_id
+		WHERE m.menu_isdel=0
+		AND m.menu_isshow=1
+		ORDER BY m.menu_isroot DESC,m.menu_ordernum DESC , a.auth_ordernum DESC
+	</select>
+	<!-- 菜单管理：展示时需要去重 权限管理：展示时不需要去重 -->
+	<select id="findBaseMenuTree" resultMap="MenuVo" parameterType="java.lang.Integer">
+		SELECT *
+		FROM t_menu m LEFT JOIN t_auth a ON m.menu_id=a.auth_menu_id
+		WHERE m.menu_isdel=0
+		AND (m.menu_isshow=1 or m.menu_isshow=0)
+		<if test="param.dis">
+			group by menu_id
+		</if>
+		ORDER BY m.`menu_pid`,menu_isroot DESC,m.menu_ordernum DESC
+		<!-- SELECT * FROM base_menu m LEFT JOIN base_auth a ON m.menu_id=a.auth_menu_id 
+			WHERE m.menu_type=#{mt} ORDER BY m.menu_isroot DESC,m.menu_ordernum DESC 
+			, a.auth_ordernum DESC -->
+	</select>
+	<!-- 根据pid删除 -->
+	<update id="updateBaseMenuByPid" parameterType="java.lang.Integer">
+		UPDATE t_menu SET menu_isdel=1 WHERE menu_pid=#{id}
+	</update>
+	<!-- 修改 (是否被删除状态) 为删除状态 根据id删除 -->
+	<update id="updateBaseMenuById" parameterType="java.lang.Integer">
+		UPDATE t_menu SET menu_isdel=1 WHERE menu_id=#{id}
+	</update>
+</mapper>

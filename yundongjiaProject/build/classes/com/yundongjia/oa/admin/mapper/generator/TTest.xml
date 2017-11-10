@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  	 <classPathEntry location="D:\work\yundongjiaProject\WebRoot\WEB-INF\lib\mysql-connector-java-5.1.38-bin.jar"/>
+  <context id="contextcity" >
+  <!-- 该属性，仅在确实需要进行合并，而不是覆盖的情况下使用，且值要求为：true；没有该属性的时候，默认为false; -->
+  <!-- 还是需要删除自动生成的代码  如 po,mapper,mapper.xml  -->
+  <property name="mergeable" value="false"></property>
+
+
+
+  	<commentGenerator >
+  			<!-- 是否去除自动生成的注释 true：是 ： false:否 --> 
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+   <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://101.201.209.55:3306/yundongjia" userId="root"
+			password="hydfkj">
+	</jdbcConnection>
+	<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+   <javaModelGenerator targetPackage="com.yundongjia.oa.admin.po"
+			targetProject="yundongjiaProject\src">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+	</javaModelGenerator>
+    <sqlMapGenerator targetPackage="com.yundongjia.oa.admin.mapper"
+			targetProject="yundongjiaProject\src">
+			
+			<property name="enableSubPackages" value="false" />
+	</sqlMapGenerator>
+	 
+	  
+	<javaClientGenerator type="XMLMAPPER"
+		targetPackage="com.yundongjia.oa.admin.mapper"
+		targetProject="yundongjiaProject\src">
+		
+		<property name="enableSubPackages" value="false" />
+	</javaClientGenerator>
+	 <!--指定数据库表-->
+    <table schema="" tableName="test" >
+    	<!-- 增加时 返回主键     column=主键      sqlStatement:数据库类型  type:type=post and identity=true的时候生成的<selectKey>中的order=AFTER -->
+    	<generatedKey column="rowId" sqlStatement="MySql" identity="true" type="post"/>
+    	
+    </table>
+  </context>
+</generatorConfiguration>

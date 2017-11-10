@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TActivityOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TActivityOrder" >
+    <id column="orderId" property="orderid" jdbcType="INTEGER" />
+    <result column="activityId" property="activityid" jdbcType="INTEGER" />
+    <result column="aName" property="aname" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="mobilePhoneNum" property="mobilephonenum" jdbcType="VARCHAR" />
+    <result column="beInviterName" property="beinvitername" jdbcType="VARCHAR" />
+    <result column="scoreId" property="scoreid" jdbcType="INTEGER" />
+    <result column="beInviterPhone" property="beinviterphone" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="memberId" property="memberid" jdbcType="INTEGER" />
+    <result column="totalMoney" property="totalmoney" jdbcType="DOUBLE" />
+    <result column="orderNum" property="ordernum" jdbcType="VARCHAR" />
+    <result column="goodname" property="goodname" jdbcType="VARCHAR" />
+    <result column="joinMan" property="joinman" jdbcType="INTEGER" />
+    <result column="payType" property="paytype" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="payStatus" property="paystatus" jdbcType="VARCHAR" />
+    <result column="comm" property="comm" jdbcType="VARCHAR" />
+    <result column="messageStatus" property="messagestatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    orderId, activityId, aName, gender, mobilePhoneNum, beInviterName, scoreId, beInviterPhone, 
+    createDate, memberId, totalMoney, orderNum, goodname, joinMan, payType, source, payStatus, 
+    comm, messageStatus
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TActivityOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_activity_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_activity_order
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_activity_order
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TActivityOrderExample" >
+    delete from t_activity_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TActivityOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_activity_order (activityId, aName, gender, 
+      mobilePhoneNum, beInviterName, scoreId, 
+      beInviterPhone, createDate, memberId, 
+      totalMoney, orderNum, goodname, 
+      joinMan, payType, source, 
+      payStatus, comm, messageStatus
+      )
+    values (#{activityid,jdbcType=INTEGER}, #{aname,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{mobilephonenum,jdbcType=VARCHAR}, #{beinvitername,jdbcType=VARCHAR}, #{scoreid,jdbcType=INTEGER}, 
+      #{beinviterphone,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, #{memberid,jdbcType=INTEGER}, 
+      #{totalmoney,jdbcType=DOUBLE}, #{ordernum,jdbcType=VARCHAR}, #{goodname,jdbcType=VARCHAR}, 
+      #{joinman,jdbcType=INTEGER}, #{paytype,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+      #{paystatus,jdbcType=VARCHAR}, #{comm,jdbcType=VARCHAR}, #{messagestatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TActivityOrder" keyProperty="activityid" useGeneratedKeys="true" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_activity_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityid != null" >
+        activityId,
+      </if>
+      <if test="aname != null" >
+        aName,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="mobilephonenum != null" >
+        mobilePhoneNum,
+      </if>
+      <if test="beinvitername != null" >
+        beInviterName,
+      </if>
+      <if test="scoreid != null" >
+        scoreId,
+      </if>
+      <if test="beinviterphone != null" >
+        beInviterPhone,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="memberid != null" >
+        memberId,
+      </if>
+      <if test="totalmoney != null" >
+        totalMoney,
+      </if>
+      <if test="ordernum != null" >
+        orderNum,
+      </if>
+      <if test="goodname != null" >
+        goodname,
+      </if>
+      <if test="joinman != null" >
+        joinMan,
+      </if>
+      <if test="paytype != null" >
+        payType,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="paystatus != null" >
+        payStatus,
+      </if>
+      <if test="comm != null" >
+        comm,
+      </if>
+      <if test="messagestatus != null" >
+        messageStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityid != null" >
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephonenum != null" >
+        #{mobilephonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="beinvitername != null" >
+        #{beinvitername,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreid != null" >
+        #{scoreid,jdbcType=INTEGER},
+      </if>
+      <if test="beinviterphone != null" >
+        #{beinviterphone,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="totalmoney != null" >
+        #{totalmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodname != null" >
+        #{goodname,jdbcType=VARCHAR},
+      </if>
+      <if test="joinman != null" >
+        #{joinman,jdbcType=INTEGER},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="comm != null" >
+        #{comm,jdbcType=VARCHAR},
+      </if>
+      <if test="messagestatus != null" >
+        #{messagestatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TActivityOrderExample" resultType="java.lang.Integer" >
+    select count(*) from t_activity_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_activity_order
+    <set >
+      <if test="record.orderid != null" >
+        orderId = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityid != null" >
+        activityId = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.aname != null" >
+        aName = #{record.aname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephonenum != null" >
+        mobilePhoneNum = #{record.mobilephonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beinvitername != null" >
+        beInviterName = #{record.beinvitername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scoreid != null" >
+        scoreId = #{record.scoreid,jdbcType=INTEGER},
+      </if>
+      <if test="record.beinviterphone != null" >
+        beInviterPhone = #{record.beinviterphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberid != null" >
+        memberId = #{record.memberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalmoney != null" >
+        totalMoney = #{record.totalmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ordernum != null" >
+        orderNum = #{record.ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodname != null" >
+        goodname = #{record.goodname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinman != null" >
+        joinMan = #{record.joinman,jdbcType=INTEGER},
+      </if>
+      <if test="record.paytype != null" >
+        payType = #{record.paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paystatus != null" >
+        payStatus = #{record.paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comm != null" >
+        comm = #{record.comm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messagestatus != null" >
+        messageStatus = #{record.messagestatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_activity_order
+    set orderId = #{record.orderid,jdbcType=INTEGER},
+      activityId = #{record.activityid,jdbcType=INTEGER},
+      aName = #{record.aname,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      mobilePhoneNum = #{record.mobilephonenum,jdbcType=VARCHAR},
+      beInviterName = #{record.beinvitername,jdbcType=VARCHAR},
+      scoreId = #{record.scoreid,jdbcType=INTEGER},
+      beInviterPhone = #{record.beinviterphone,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      memberId = #{record.memberid,jdbcType=INTEGER},
+      totalMoney = #{record.totalmoney,jdbcType=DOUBLE},
+      orderNum = #{record.ordernum,jdbcType=VARCHAR},
+      goodname = #{record.goodname,jdbcType=VARCHAR},
+      joinMan = #{record.joinman,jdbcType=INTEGER},
+      payType = #{record.paytype,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      payStatus = #{record.paystatus,jdbcType=VARCHAR},
+      comm = #{record.comm,jdbcType=VARCHAR},
+      messageStatus = #{record.messagestatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TActivityOrder" >
+    update t_activity_order
+    <set >
+      <if test="activityid != null" >
+        activityId = #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null" >
+        aName = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephonenum != null" >
+        mobilePhoneNum = #{mobilephonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="beinvitername != null" >
+        beInviterName = #{beinvitername,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreid != null" >
+        scoreId = #{scoreid,jdbcType=INTEGER},
+      </if>
+      <if test="beinviterphone != null" >
+        beInviterPhone = #{beinviterphone,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        memberId = #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="totalmoney != null" >
+        totalMoney = #{totalmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ordernum != null" >
+        orderNum = #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodname != null" >
+        goodname = #{goodname,jdbcType=VARCHAR},
+      </if>
+      <if test="joinman != null" >
+        joinMan = #{joinman,jdbcType=INTEGER},
+      </if>
+      <if test="paytype != null" >
+        payType = #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        payStatus = #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="comm != null" >
+        comm = #{comm,jdbcType=VARCHAR},
+      </if>
+      <if test="messagestatus != null" >
+        messageStatus = #{messagestatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TActivityOrder" >
+    update t_activity_order
+    set activityId = #{activityid,jdbcType=INTEGER},
+      aName = #{aname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      mobilePhoneNum = #{mobilephonenum,jdbcType=VARCHAR},
+      beInviterName = #{beinvitername,jdbcType=VARCHAR},
+      scoreId = #{scoreid,jdbcType=INTEGER},
+      beInviterPhone = #{beinviterphone,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      memberId = #{memberid,jdbcType=INTEGER},
+      totalMoney = #{totalmoney,jdbcType=DOUBLE},
+      orderNum = #{ordernum,jdbcType=VARCHAR},
+      goodname = #{goodname,jdbcType=VARCHAR},
+      joinMan = #{joinman,jdbcType=INTEGER},
+      payType = #{paytype,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      payStatus = #{paystatus,jdbcType=VARCHAR},
+      comm = #{comm,jdbcType=VARCHAR},
+      messageStatus = #{messagestatus,jdbcType=VARCHAR}
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+  
+  
+
+
+ <!-- 手写SQL -->
+  
+  <!-- 活动订单 -->
+  <select id="findActivityOrders" parameterType="java.util.Map" resultType="java.util.Map">
+  	 select t_activity_order.*,t_member.userId from t_activity_order 
+inner join t_member
+on t_activity_order.memberId = t_member.memberId
+where 1=1
+ 
+	<if test="param.mobilePhoneNum !=null">
+		and t_activity_order.mobilePhoneNum like #{param.mobilePhoneNum}
+	</if>
+	and t_activity_order.activityId = #{param.activityId}
+	 order by t_activity_order.orderId desc
+  </select>
+  
+  <!--hj   根据不同订单状态统计  和日期  或单个活动统计-->
+  <select id="selectActivityOrderStatisByPayStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+     select sum(t_activity_order.joinMan) from t_activity_order where 
+     t_activity_order.payStatus = #{param.status}
+     <if test="param.dateTime != null">
+     	and date_format(createDate,'%Y-%m-%d') = #{param.dateTime}
+     </if>
+     <if test="param.activityId != null">
+     	and t_activity_order.activityId = #{param.activityId}
+     </if>
+  </select>
+  <!-- hj 活动收入，或单个活动收入 -->
+  <select id="selectActivityOrderTotalMoney" parameterType="java.util.Map" resultType="java.lang.String">
+  	select sum(totalMoney) from t_activity_order where t_activity_order.totalMoney != -1
+	and t_activity_order.payStatus = 2
+	<if test="param.activityId != null">
+	   and t_activity_order.activityId = #{param.activityId}
+	</if>
+  </select>
+  
+  
+  <!--hj  条件或全查订单  -->
+  <select id="findActivityOrds" parameterType="com.yundongjia.oa.admin.vo.OrderSearchVo" resultType="java.util.Map">
+select * from t_activity_order
+<if test="orderMenuType == 1">
+left join t_order_discount
+on t_order_discount.orderId = t_activity_order.orderId
+</if>
+where 1=1 
+<if test="sourceContext !=null and sourceContext != ''">
+	and comm like  CONCAT('%', #{sourceContext}, '%')
+</if>
+<if test="orderStatus != null and orderStatus != -1">
+    and payStatus = #{orderStatus}
+</if>
+<if test="orderMenuType != 1">
+   <if test="startTime != null and startTime !='' and endTime !=null and endTime !='' ">
+    and createDate between #{startTime} and #{endTime}
+   </if>
+</if>
+<if test="mobilePhoneNum !=null and mobilePhoneNum !='' ">
+    and mobilePhoneNum like  CONCAT('%',#{mobilePhoneNum},'%') 
+</if>
+<if test="memberId !=null and memberId !='' ">
+    and memberId = #{memberId} 
+</if>
+<if test="orderMenuType == 1">
+  and t_order_discount.status = 4
+  and (payStatus = 3 or payStatus = 4)
+  <if test="startTime != null and startTime !='' and endTime !=null and endTime !='' ">
+    and retreatDate between #{startTime} and #{endTime}
+  </if>
+</if>
+	order by t_activity_order.createDate desc
+  </select>
+  
+  <!-- 查询订单使用的红包金额 lxy-->
+  <select id="employSum" parameterType="java.util.Map" resultType="java.lang.Double">
+  	select sum(redPackage) from t_order_discount toc join t_activity_order t 
+  		on toc.orderId = t.orderId
+  		and #{startTime} &lt; t.createDate and t.createDate &lt; #{endTime}
+  </select>
+   <!-- 根据订单Id查询报名会员信息 lxy-->
+  <select id="findeMember" parameterType="java.lang.Integer" resultType="java.util.Map">
+  		select tm.memberId,tm.imgpath,tao.joinMan from t_activity_order tao join t_member tm
+			on tao.memberId = tm.memberId
+			and tao.activityId = #{activeId}
+  </select>
+</mapper>

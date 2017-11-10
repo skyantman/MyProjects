@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TBodyfatMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TBodyfat" >
+    <id column="rowId" property="rowid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="measureTime" property="measuretime" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="VARCHAR" />
+    <result column="bmi" property="bmi" jdbcType="VARCHAR" />
+    <result column="bodyfat" property="bodyfat" jdbcType="VARCHAR" />
+    <result column="subfat" property="subfat" jdbcType="VARCHAR" />
+    <result column="visfat" property="visfat" jdbcType="VARCHAR" />
+    <result column="water" property="water" jdbcType="VARCHAR" />
+    <result column="bmr" property="bmr" jdbcType="VARCHAR" />
+    <result column="muscle" property="muscle" jdbcType="VARCHAR" />
+    <result column="bone" property="bone" jdbcType="VARCHAR" />
+    <result column="protein" property="protein" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="mm" property="mm" jdbcType="VARCHAR" />
+    <result column="onlyNum" property="onlynum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rowId, userId, measureTime, weight, bmi, bodyfat, subfat, visfat, water, bmr, muscle, 
+    bone, protein, gender, height, birthday, mm, onlyNum
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TBodyfatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_bodyfat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bodyfat
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bodyfat
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TBodyfatExample" >
+    delete from t_bodyfat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TBodyfat" >
+    insert into t_bodyfat (rowId, userId, measureTime, 
+      weight, bmi, bodyfat, 
+      subfat, visfat, water, 
+      bmr, muscle, bone, 
+      protein, gender, height, 
+      birthday, mm, onlyNum
+      )
+    values (#{rowid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{measuretime,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=VARCHAR}, #{bmi,jdbcType=VARCHAR}, #{bodyfat,jdbcType=VARCHAR}, 
+      #{subfat,jdbcType=VARCHAR}, #{visfat,jdbcType=VARCHAR}, #{water,jdbcType=VARCHAR}, 
+      #{bmr,jdbcType=VARCHAR}, #{muscle,jdbcType=VARCHAR}, #{bone,jdbcType=VARCHAR}, 
+      #{protein,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{height,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{mm,jdbcType=VARCHAR}, #{onlynum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TBodyfat" >
+    insert into t_bodyfat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rowid != null" >
+        rowId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="measuretime != null" >
+        measureTime,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="bmi != null" >
+        bmi,
+      </if>
+      <if test="bodyfat != null" >
+        bodyfat,
+      </if>
+      <if test="subfat != null" >
+        subfat,
+      </if>
+      <if test="visfat != null" >
+        visfat,
+      </if>
+      <if test="water != null" >
+        water,
+      </if>
+      <if test="bmr != null" >
+        bmr,
+      </if>
+      <if test="muscle != null" >
+        muscle,
+      </if>
+      <if test="bone != null" >
+        bone,
+      </if>
+      <if test="protein != null" >
+        protein,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="mm != null" >
+        mm,
+      </if>
+      <if test="onlynum != null" >
+        onlyNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rowid != null" >
+        #{rowid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="measuretime != null" >
+        #{measuretime,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="bmi != null" >
+        #{bmi,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyfat != null" >
+        #{bodyfat,jdbcType=VARCHAR},
+      </if>
+      <if test="subfat != null" >
+        #{subfat,jdbcType=VARCHAR},
+      </if>
+      <if test="visfat != null" >
+        #{visfat,jdbcType=VARCHAR},
+      </if>
+      <if test="water != null" >
+        #{water,jdbcType=VARCHAR},
+      </if>
+      <if test="bmr != null" >
+        #{bmr,jdbcType=VARCHAR},
+      </if>
+      <if test="muscle != null" >
+        #{muscle,jdbcType=VARCHAR},
+      </if>
+      <if test="bone != null" >
+        #{bone,jdbcType=VARCHAR},
+      </if>
+      <if test="protein != null" >
+        #{protein,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="mm != null" >
+        #{mm,jdbcType=VARCHAR},
+      </if>
+      <if test="onlynum != null" >
+        #{onlynum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TBodyfatExample" resultType="java.lang.Integer" >
+    select count(*) from t_bodyfat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_bodyfat
+    <set >
+      <if test="record.rowid != null" >
+        rowId = #{record.rowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.measuretime != null" >
+        measureTime = #{record.measuretime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bmi != null" >
+        bmi = #{record.bmi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bodyfat != null" >
+        bodyfat = #{record.bodyfat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subfat != null" >
+        subfat = #{record.subfat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visfat != null" >
+        visfat = #{record.visfat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.water != null" >
+        water = #{record.water,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bmr != null" >
+        bmr = #{record.bmr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.muscle != null" >
+        muscle = #{record.muscle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bone != null" >
+        bone = #{record.bone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.protein != null" >
+        protein = #{record.protein,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mm != null" >
+        mm = #{record.mm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlynum != null" >
+        onlyNum = #{record.onlynum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_bodyfat
+    set rowId = #{record.rowid,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      measureTime = #{record.measuretime,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=VARCHAR},
+      bmi = #{record.bmi,jdbcType=VARCHAR},
+      bodyfat = #{record.bodyfat,jdbcType=VARCHAR},
+      subfat = #{record.subfat,jdbcType=VARCHAR},
+      visfat = #{record.visfat,jdbcType=VARCHAR},
+      water = #{record.water,jdbcType=VARCHAR},
+      bmr = #{record.bmr,jdbcType=VARCHAR},
+      muscle = #{record.muscle,jdbcType=VARCHAR},
+      bone = #{record.bone,jdbcType=VARCHAR},
+      protein = #{record.protein,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      height = #{record.height,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=VARCHAR},
+      mm = #{record.mm,jdbcType=VARCHAR},
+      onlyNum = #{record.onlynum,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TBodyfat" >
+    update t_bodyfat
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="measuretime != null" >
+        measureTime = #{measuretime,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="bmi != null" >
+        bmi = #{bmi,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyfat != null" >
+        bodyfat = #{bodyfat,jdbcType=VARCHAR},
+      </if>
+      <if test="subfat != null" >
+        subfat = #{subfat,jdbcType=VARCHAR},
+      </if>
+      <if test="visfat != null" >
+        visfat = #{visfat,jdbcType=VARCHAR},
+      </if>
+      <if test="water != null" >
+        water = #{water,jdbcType=VARCHAR},
+      </if>
+      <if test="bmr != null" >
+        bmr = #{bmr,jdbcType=VARCHAR},
+      </if>
+      <if test="muscle != null" >
+        muscle = #{muscle,jdbcType=VARCHAR},
+      </if>
+      <if test="bone != null" >
+        bone = #{bone,jdbcType=VARCHAR},
+      </if>
+      <if test="protein != null" >
+        protein = #{protein,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="mm != null" >
+        mm = #{mm,jdbcType=VARCHAR},
+      </if>
+      <if test="onlynum != null" >
+        onlyNum = #{onlynum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TBodyfat" >
+    update t_bodyfat
+    set userId = #{userid,jdbcType=INTEGER},
+      measureTime = #{measuretime,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      bmi = #{bmi,jdbcType=VARCHAR},
+      bodyfat = #{bodyfat,jdbcType=VARCHAR},
+      subfat = #{subfat,jdbcType=VARCHAR},
+      visfat = #{visfat,jdbcType=VARCHAR},
+      water = #{water,jdbcType=VARCHAR},
+      bmr = #{bmr,jdbcType=VARCHAR},
+      muscle = #{muscle,jdbcType=VARCHAR},
+      bone = #{bone,jdbcType=VARCHAR},
+      protein = #{protein,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      height = #{height,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      mm = #{mm,jdbcType=VARCHAR},
+      onlyNum = #{onlynum,jdbcType=VARCHAR}
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+</mapper>

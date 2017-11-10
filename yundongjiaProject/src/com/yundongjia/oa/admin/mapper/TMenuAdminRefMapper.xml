@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TMenuAdminRefMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TMenuAdminRef" >
+    <id column="menu_admin_id" property="menuAdminId" jdbcType="INTEGER" />
+    <result column="menu_admin_menu_id" property="menuAdminMenuId" jdbcType="INTEGER" />
+    <result column="menu_admin_admin_id" property="menuAdminAdminId" jdbcType="INTEGER" />
+    <result column="menu_admin_role_id" property="menuAdminRoleId" jdbcType="VARCHAR" />
+    <result column="menu_admin_type" property="menuAdminType" jdbcType="TINYINT" />
+    <result column="menu_admin_create_date" property="menuAdminCreateDate" jdbcType="TIMESTAMP" />
+    <result column="menu_admin_operatorid" property="menuAdminOperatorid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    menu_admin_id, menu_admin_menu_id, menu_admin_admin_id, menu_admin_role_id, menu_admin_type, 
+    menu_admin_create_date, menu_admin_operatorid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TMenuAdminRefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_menu_admin_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_menu_admin_ref
+    where menu_admin_id = #{menuAdminId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_menu_admin_ref
+    where menu_admin_id = #{menuAdminId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TMenuAdminRefExample" >
+    delete from t_menu_admin_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TMenuAdminRef" >
+    insert into t_menu_admin_ref (menu_admin_id, menu_admin_menu_id, menu_admin_admin_id, 
+      menu_admin_role_id, menu_admin_type, menu_admin_create_date, 
+      menu_admin_operatorid)
+    values (#{menuAdminId,jdbcType=INTEGER}, #{menuAdminMenuId,jdbcType=INTEGER}, #{menuAdminAdminId,jdbcType=INTEGER}, 
+      #{menuAdminRoleId,jdbcType=VARCHAR}, #{menuAdminType,jdbcType=TINYINT}, #{menuAdminCreateDate,jdbcType=TIMESTAMP}, 
+      #{menuAdminOperatorid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TMenuAdminRef"  keyProperty="menuAdminId" useGeneratedKeys="true">
+    insert into t_menu_admin_ref
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuAdminId != null" >
+        menu_admin_id,
+      </if>
+      <if test="menuAdminMenuId != null" >
+        menu_admin_menu_id,
+      </if>
+      <if test="menuAdminAdminId != null" >
+        menu_admin_admin_id,
+      </if>
+      <if test="menuAdminRoleId != null" >
+        menu_admin_role_id,
+      </if>
+      <if test="menuAdminType != null" >
+        menu_admin_type,
+      </if>
+      <if test="menuAdminCreateDate != null" >
+        menu_admin_create_date,
+      </if>
+      <if test="menuAdminOperatorid != null" >
+        menu_admin_operatorid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuAdminId != null" >
+        #{menuAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="menuAdminMenuId != null" >
+        #{menuAdminMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuAdminAdminId != null" >
+        #{menuAdminAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="menuAdminRoleId != null" >
+        #{menuAdminRoleId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuAdminType != null" >
+        #{menuAdminType,jdbcType=TINYINT},
+      </if>
+      <if test="menuAdminCreateDate != null" >
+        #{menuAdminCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuAdminOperatorid != null" >
+        #{menuAdminOperatorid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TMenuAdminRefExample" resultType="java.lang.Integer" >
+    select count(*) from t_menu_admin_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_menu_admin_ref
+    <set >
+      <if test="record.menuAdminId != null" >
+        menu_admin_id = #{record.menuAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuAdminMenuId != null" >
+        menu_admin_menu_id = #{record.menuAdminMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuAdminAdminId != null" >
+        menu_admin_admin_id = #{record.menuAdminAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuAdminRoleId != null" >
+        menu_admin_role_id = #{record.menuAdminRoleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuAdminType != null" >
+        menu_admin_type = #{record.menuAdminType,jdbcType=TINYINT},
+      </if>
+      <if test="record.menuAdminCreateDate != null" >
+        menu_admin_create_date = #{record.menuAdminCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.menuAdminOperatorid != null" >
+        menu_admin_operatorid = #{record.menuAdminOperatorid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_menu_admin_ref
+    set menu_admin_id = #{record.menuAdminId,jdbcType=INTEGER},
+      menu_admin_menu_id = #{record.menuAdminMenuId,jdbcType=INTEGER},
+      menu_admin_admin_id = #{record.menuAdminAdminId,jdbcType=INTEGER},
+      menu_admin_role_id = #{record.menuAdminRoleId,jdbcType=VARCHAR},
+      menu_admin_type = #{record.menuAdminType,jdbcType=TINYINT},
+      menu_admin_create_date = #{record.menuAdminCreateDate,jdbcType=TIMESTAMP},
+      menu_admin_operatorid = #{record.menuAdminOperatorid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TMenuAdminRef" >
+    update t_menu_admin_ref
+    <set >
+      <if test="menuAdminMenuId != null" >
+        menu_admin_menu_id = #{menuAdminMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuAdminAdminId != null" >
+        menu_admin_admin_id = #{menuAdminAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="menuAdminRoleId != null" >
+        menu_admin_role_id = #{menuAdminRoleId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuAdminType != null" >
+        menu_admin_type = #{menuAdminType,jdbcType=TINYINT},
+      </if>
+      <if test="menuAdminCreateDate != null" >
+        menu_admin_create_date = #{menuAdminCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuAdminOperatorid != null" >
+        menu_admin_operatorid = #{menuAdminOperatorid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where menu_admin_id = #{menuAdminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TMenuAdminRef" >
+    update t_menu_admin_ref
+    set menu_admin_menu_id = #{menuAdminMenuId,jdbcType=INTEGER},
+      menu_admin_admin_id = #{menuAdminAdminId,jdbcType=INTEGER},
+      menu_admin_role_id = #{menuAdminRoleId,jdbcType=VARCHAR},
+      menu_admin_type = #{menuAdminType,jdbcType=TINYINT},
+      menu_admin_create_date = #{menuAdminCreateDate,jdbcType=TIMESTAMP},
+      menu_admin_operatorid = #{menuAdminOperatorid,jdbcType=INTEGER}
+    where menu_admin_id = #{menuAdminId,jdbcType=INTEGER}
+  </update>
+  <!-- 以下是手写 sql -->
+	<select id="selectMenuRoleRefMyRoleId" parameterType="java.lang.Integer" resultType="java.util.Map">
+	   SELECT * FROM 
+t_menu_admin_ref ref
+INNER JOIN t_menu bm
+ON ref.menu_admin_menu_id = bm.menu_id
+WHERE menu_admin_role_id = #{rId}
+
+	</select>
+	<!--以下是手写的-->
+
+    <insert id="insertMenuRoleRefs" parameterType="java.util.List">
+        insert into t_menu_admin_ref ( menu_admin_menu_id, menu_admin_role_id,
+         menu_admin_create_date, menu_admin_operatorid
+        )
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.menuAdminMenuId},#{item.menuAdminRoleId},
+            #{item.menuAdminCreateDate},#{item.menuAdminOperatorid})
+        </foreach>
+    </insert>
+</mapper>

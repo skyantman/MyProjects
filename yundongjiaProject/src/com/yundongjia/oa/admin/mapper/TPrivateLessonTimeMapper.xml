@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yundongjia.oa.admin.mapper.TPrivateLessonTimeMapper" >
+  <resultMap id="BaseResultMap" type="com.yundongjia.oa.admin.po.TPrivateLessonTime" >
+    <id column="rowId" property="rowid" jdbcType="INTEGER" />
+    <result column="coachId" property="coachid" jdbcType="INTEGER" />
+    <result column="lessonDate" property="lessondate" jdbcType="VARCHAR" />
+    <result column="availableTimeSpan" property="availabletimespan" jdbcType="VARCHAR" />
+    <result column="unAvailableTimeSpan" property="unavailabletimespan" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="closeWeek" property="closeweek" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rowId, coachId, lessonDate, availableTimeSpan, unAvailableTimeSpan, createDate, closeWeek
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yundongjia.oa.admin.po.TPrivateLessonTimeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_private_lesson_time
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_private_lesson_time
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_private_lesson_time
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yundongjia.oa.admin.po.TPrivateLessonTimeExample" >
+    delete from t_private_lesson_time
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yundongjia.oa.admin.po.TPrivateLessonTime" >
+    insert into t_private_lesson_time (rowId, coachId, lessonDate, 
+      availableTimeSpan, unAvailableTimeSpan, 
+      createDate, closeWeek)
+    values (#{rowid,jdbcType=INTEGER}, #{coachid,jdbcType=INTEGER}, #{lessondate,jdbcType=VARCHAR}, 
+      #{availabletimespan,jdbcType=VARCHAR}, #{unavailabletimespan,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=VARCHAR}, #{closeweek,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yundongjia.oa.admin.po.TPrivateLessonTime" >
+    insert into t_private_lesson_time
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rowid != null" >
+        rowId,
+      </if>
+      <if test="coachid != null" >
+        coachId,
+      </if>
+      <if test="lessondate != null" >
+        lessonDate,
+      </if>
+      <if test="availabletimespan != null" >
+        availableTimeSpan,
+      </if>
+      <if test="unavailabletimespan != null" >
+        unAvailableTimeSpan,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="closeweek != null" >
+        closeWeek,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rowid != null" >
+        #{rowid,jdbcType=INTEGER},
+      </if>
+      <if test="coachid != null" >
+        #{coachid,jdbcType=INTEGER},
+      </if>
+      <if test="lessondate != null" >
+        #{lessondate,jdbcType=VARCHAR},
+      </if>
+      <if test="availabletimespan != null" >
+        #{availabletimespan,jdbcType=VARCHAR},
+      </if>
+      <if test="unavailabletimespan != null" >
+        #{unavailabletimespan,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="closeweek != null" >
+        #{closeweek,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    
+     <selectKey keyColumn="rowId" order="AFTER"
+			resultType="Integer" keyProperty="rowid">
+			<!-- 获取当前线程最后一次插入的数据id , LAST_INSERT_ID()是mysql的内 置函数 -->
+			SELECT LAST_INSERT_ID() as lid
+	</selectKey>
+  </insert>
+  <select id="countByExample" parameterType="com.yundongjia.oa.admin.po.TPrivateLessonTimeExample" resultType="java.lang.Integer" >
+    select count(*) from t_private_lesson_time
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_private_lesson_time
+    <set >
+      <if test="record.rowid != null" >
+        rowId = #{record.rowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.coachid != null" >
+        coachId = #{record.coachid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lessondate != null" >
+        lessonDate = #{record.lessondate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.availabletimespan != null" >
+        availableTimeSpan = #{record.availabletimespan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unavailabletimespan != null" >
+        unAvailableTimeSpan = #{record.unavailabletimespan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closeweek != null" >
+        closeWeek = #{record.closeweek,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_private_lesson_time
+    set rowId = #{record.rowid,jdbcType=INTEGER},
+      coachId = #{record.coachid,jdbcType=INTEGER},
+      lessonDate = #{record.lessondate,jdbcType=VARCHAR},
+      availableTimeSpan = #{record.availabletimespan,jdbcType=VARCHAR},
+      unAvailableTimeSpan = #{record.unavailabletimespan,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      closeWeek = #{record.closeweek,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yundongjia.oa.admin.po.TPrivateLessonTime" >
+    update t_private_lesson_time
+    <set >
+      <if test="coachid != null" >
+        coachId = #{coachid,jdbcType=INTEGER},
+      </if>
+      <if test="lessondate != null" >
+        lessonDate = #{lessondate,jdbcType=VARCHAR},
+      </if>
+      <if test="availabletimespan != null" >
+        availableTimeSpan = #{availabletimespan,jdbcType=VARCHAR},
+      </if>
+      <if test="unavailabletimespan != null" >
+        unAvailableTimeSpan = #{unavailabletimespan,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="closeweek != null" >
+        closeWeek = #{closeweek,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yundongjia.oa.admin.po.TPrivateLessonTime" >
+    update t_private_lesson_time
+    set coachId = #{coachid,jdbcType=INTEGER},
+      lessonDate = #{lessondate,jdbcType=VARCHAR},
+      availableTimeSpan = #{availabletimespan,jdbcType=VARCHAR},
+      unAvailableTimeSpan = #{unavailabletimespan,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      closeWeek = #{closeweek,jdbcType=VARCHAR}
+    where rowId = #{rowid,jdbcType=INTEGER}
+  </update>
+</mapper>
